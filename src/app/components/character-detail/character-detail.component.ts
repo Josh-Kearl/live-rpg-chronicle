@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CharactersService } from '../../app-services/characters.service';
+
 
 @Component({
   selector: 'app-character-detail',
@@ -7,7 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CharacterDetailComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private CharactersService,
+  ) { }
 
   ngOnInit() {
   }
