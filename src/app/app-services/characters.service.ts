@@ -13,9 +13,9 @@ export class CharactersService {
     private HttpClient
   ) { }
 
-  getCharacter(id: string): Observable<Character> {
-    return this.getCharacter().pipe(map((characters: Character[]) => {
-      return characters.find((character: Character) => character.id === id);
-    }));
-  }
+  // getCharacter(id: string): Observable<Character> {
+  //   return this.getCharacter().pipe(map((characters: Character[]) => {
+  //     return characters.find((character: Character) => character.id === id);
+  //   }));
+  // }
 }
