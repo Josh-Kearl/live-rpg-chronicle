@@ -17,6 +17,12 @@ import { CreateCharacterComponent } from './components/create-character/create-c
 import { CreateStoryComponent } from './components/create-story/create-story.component';
 import { InventoryComponent } from './components/inventory/inventory.component';
 import { FriendsComponent } from './components/friends/friends.component';
+import { AppRoutingModule } from './app-routing.module';
+import { environment } from '../environments/environment';
+import { AngularFireModule } from "angularfire2";
+import { AngularFireDatabaseModule } from "angularfire2/database";
+import { AngularFireAuthModule } from "angularfire2/auth";
+
 
 @NgModule({
   declarations: [
@@ -32,7 +38,11 @@ import { FriendsComponent } from './components/friends/friends.component';
     FriendsComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebase, 'rpg-chronicle'),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]
