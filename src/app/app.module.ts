@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
-import {MatButtonModule, MatCheckboxModule} from '@angular/material';
+import { MatButtonModule, MatCardContent, MatCheckboxModule } from '@angular/material';
 
 
 import { AppComponent } from './app.component';
@@ -22,6 +22,7 @@ import { environment } from '../environments/environment';
 import { AngularFireModule } from "angularfire2";
 import { AngularFireDatabaseModule } from "angularfire2/database";
 import { AngularFireAuthModule } from "angularfire2/auth";
+import { MaterialModule } from "./material.module";
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { AngularFireAuthModule } from "angularfire2/auth";
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase, 'rpg-chronicle'),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]

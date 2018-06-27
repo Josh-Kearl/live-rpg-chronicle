@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CharactersService } from '../../app-services/characters.service';
 import { AngularFirestoreCollection } from "angularfire2/firestore";
+import { FirebaseListObservable } from "angularfire2/database-deprecated";
 
 export interface Character {
   id: string;
@@ -15,22 +16,16 @@ export interface Character {
   styleUrls: ['./character-list.component.css']
 })
 export class CharacterListComponent implements OnInit {
-  private characterList: AngularFirestoreCollection<Character>;
-  character: any;
+  characters: FirebaseListObservable<any[]>;
 
   constructor(
-    private CharactersService,
+    // private CharactersService,
   ) { }
 
   ngOnInit() {
   }
 
-  GetUserInfo(){
-    // this.userService.getLoggedInUserInfo().subscribe( res => {
-    //  this.user = res;
-    return this.character = {
-      name: 'Amberaldus',
-      age: 31,
-      haircolor: 'brown',
-      inventory: ['dagger','rations','potion of brilliance']
-}}}
+  goToCharacterPage(character){
+    console.log("Go.");
+  }
+}

@@ -7,6 +7,8 @@ export interface Character {
   name: string;
   haircolor: string;
   age: number;
+  gold: number;
+  inventory: Array<string>;
 }
 
 @Component({
@@ -18,7 +20,6 @@ export class CharacterDetailComponent implements OnInit {
   private characterList: AngularFirestoreCollection<Character>;
 
   constructor(
-    private CharactersService,
   ) { }
 
   ngOnInit() {

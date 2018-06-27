@@ -1,21 +1,24 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { Character } from "../../../../Angular/c6-star-wars-app-animations-beginning/src/app/domains/character";
 import { Observable } from "rxjs/index";
+import 'core-js/es7/reflect';
+import { AngularFireDatabase, AngularFireList } from "angularfire2/database";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CharactersService {
+  characters: AngularFireList<any[]>;
 
   constructor(
-    private HttpClient
-  ) { }
+    private HttpClient,
+    private database: AngularFireDatabase
+  ) {
+    this.characters = database.list('characters');
+  }
 
-  // getCharacter(id: string): Observable<Character> {
-  //   return this.getCharacter().pipe(map((characters: Character[]) => {
-  //     return characters.find((character: Character) => character.id === id);
-  //   }));
-  // }
+  getCharacters(){
+    return this.characters;
+  }
 }
