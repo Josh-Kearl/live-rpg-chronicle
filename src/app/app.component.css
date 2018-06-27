@@ -11,20 +11,19 @@ body{
   background-color: #2a2a2a;
   display:flex;
   align-items: center;
+  justify-content: center;
 }
 
 .text{
-  position: absolute;
   color: #000000;
-
   align-content: center;
   width: 100%;
 }
 
 .buttonText{
-  position: absolute;
   color: #000000;
   text-align: center;
   width: 100%;
+
 
 }
