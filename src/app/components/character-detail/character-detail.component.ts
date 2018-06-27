@@ -7,6 +7,8 @@ export interface Character {
   name: string;
   haircolor: string;
   age: number;
+  gold: number;
+  inventory: Array<string>;
 }
 
 @Component({
