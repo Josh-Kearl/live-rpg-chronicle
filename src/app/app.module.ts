@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatButtonModule, MatCardContent, MatCheckboxModule } from '@angular/material';
 
@@ -23,7 +23,22 @@ import { AngularFireModule } from "angularfire2";
 import { AngularFireDatabaseModule } from "angularfire2/database";
 import { AngularFireAuthModule } from "angularfire2/auth";
 import { MaterialModule } from "./material.module";
+import { RouterModule, Routes } from "@angular/router";
+import { FormsModule } from "@angular/forms";
+import { LoginComponent } from "./components/login/login.component";
 
+const appRoutes: Routes = [
+  {path: 'dashboard', component: DashboardComponent},
+  {path: 'character-detail', component: CharacterDetailComponent},
+  {path: 'character-list', component: CharacterListComponent, data: {title: 'Characters'}},
+  {path: 'create-character', component: CreateCharacterComponent},
+  {path: 'inventory', component: InventoryComponent},
+  {path: 'create-story', component: CreateStoryComponent},
+  {path: 'friends', component: FriendsComponent},
+  {path: 'story', component: StoryComponent},
+  {path: 'story-list', component: StoryListComponent},
+  {path: 'login', component: LoginComponent}
+];
 
 @NgModule({
   declarations: [
@@ -36,7 +51,8 @@ import { MaterialModule } from "./material.module";
     CreateCharacterComponent,
     CreateStoryComponent,
     InventoryComponent,
-    FriendsComponent
+    FriendsComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -44,9 +60,15 @@ import { MaterialModule } from "./material.module";
     AngularFireModule.initializeApp(environment.firebase, 'rpg-chronicle'),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    RouterModule.forRoot(
+      appRoutes
+    )
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
