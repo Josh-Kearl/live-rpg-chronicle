@@ -15,11 +15,9 @@ export interface Character {
   styleUrls: ['./character-list.component.css']
 })
 export class CharacterListComponent implements OnInit {
-  private characterList: AngularFirestoreCollection<Character>;
   character: any;
 
   constructor(
-    private CharactersService,
   ) { }
 
   ngOnInit() {

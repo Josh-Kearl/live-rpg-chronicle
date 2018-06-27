@@ -18,7 +18,6 @@ export class CharacterDetailComponent implements OnInit {
   private characterList: AngularFirestoreCollection<Character>;
 
   constructor(
-    private CharactersService,
   ) { }
 
   ngOnInit() {
