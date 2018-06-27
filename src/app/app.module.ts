@@ -22,6 +22,7 @@ import { environment } from '../environments/environment';
 import { AngularFireModule } from "angularfire2";
 import { AngularFireDatabaseModule } from "angularfire2/database";
 import { AngularFireAuthModule } from "angularfire2/auth";
+import { SideNavComponent } from './components/story/side-nav/side-nav.component';
 import { MaterialModule } from "./material.module";
 import { RouterModule, Routes } from "@angular/router";
 import { FormsModule } from "@angular/forms";
@@ -52,7 +53,8 @@ const appRoutes: Routes = [
     CreateStoryComponent,
     InventoryComponent,
     FriendsComponent,
-    LoginComponent
+    LoginComponent,
+    SideNavComponent
   ],
   imports: [
     BrowserModule,
