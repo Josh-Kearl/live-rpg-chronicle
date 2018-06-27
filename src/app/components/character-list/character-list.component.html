@@ -1,0 +1,9 @@
+<div>
+  <h2>Characters</h2>
+  <mat-card *ngFor="let character of characterList | async">
+    <mat-card-content>
+      <p>Name: {{character.name}}</p>
+      <p>Age: {{character.age}}</p>
+      <p>Hair Color: {{character.haircolor}}</p>
+    </mat-card-content>
+</div>

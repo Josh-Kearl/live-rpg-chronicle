@@ -8,15 +8,21 @@ import {MatButtonModule, MatCheckboxModule} from '@angular/material';
 
 
 import { AppComponent } from './app.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { StoryListComponent } from './story-list/story-list.component';
-import { StoryComponent } from './story/story.component';
-import { CharacterListComponent } from './character-list/character-list.component';
-import { CharacterDetailComponent } from './character-detail/character-detail.component';
-import { CreateCharacterComponent } from './create-character/create-character.component';
-import { CreateStoryComponent } from './create-story/create-story.component';
-import { InventoryComponent } from './inventory/inventory.component';
-import { FriendsComponent } from './friends/friends.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { StoryListComponent } from './components/story-list/story-list.component';
+import { StoryComponent } from './components/story/story.component';
+import { CharacterListComponent } from './components/character-list/character-list.component';
+import { CharacterDetailComponent } from './components/character-detail/character-detail.component';
+import { CreateCharacterComponent } from './components/create-character/create-character.component';
+import { CreateStoryComponent } from './components/create-story/create-story.component';
+import { InventoryComponent } from './components/inventory/inventory.component';
+import { FriendsComponent } from './components/friends/friends.component';
+import { AppRoutingModule } from './app-routing.module';
+import { environment } from '../environments/environment';
+import { AngularFireModule } from "angularfire2";
+import { AngularFireDatabaseModule } from "angularfire2/database";
+import { AngularFireAuthModule } from "angularfire2/auth";
+
 
 @NgModule({
   declarations: [
@@ -32,7 +38,11 @@ import { FriendsComponent } from './friends/friends.component';
     FriendsComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebase, 'rpg-chronicle'),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]
