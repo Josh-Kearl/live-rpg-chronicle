@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Observable } from "rxjs";
+import { AngularFirestore } from "angularfire2/firestore";
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+  character: Observable<any[]>;
+  constructor(db: AngularFirestore){
+    this.character = db.collection('characters').valueChanges();
+    console.log(this.character);
+  }
+  title = 'RPG Chronicle';
 }

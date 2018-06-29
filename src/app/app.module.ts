@@ -27,6 +27,7 @@ import { MaterialModule } from "./material.module";
 import { RouterModule, Routes } from "@angular/router";
 import { FormsModule } from "@angular/forms";
 import { LoginComponent } from "./components/login/login.component";
+import { AngularFirestoreModule } from "angularfire2/firestore";
 
 const appRoutes: Routes = [
   {path: 'dashboard', component: DashboardComponent},
@@ -60,6 +61,7 @@ const appRoutes: Routes = [
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase, 'rpg-chronicle'),
+    AngularFirestoreModule,
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     MaterialModule,
