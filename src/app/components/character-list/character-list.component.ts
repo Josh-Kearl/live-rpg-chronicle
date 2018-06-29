@@ -9,9 +9,19 @@ import { Observable } from "rxjs/index";
 })
 export class CharacterListComponent {
   public characters: Observable<any[]>;
+  hideCreate = true;
 
   constructor(db: AngularFirestore) {
     this.characters = db.collection('/characters').valueChanges();
+  }
+
+  displayCharacterName(character){
+    console.log(character.name);
+  }
+
+  openCreateMenu(){
+    this.hideCreate = false;
+    console.log("waa");
   }
 
 }
