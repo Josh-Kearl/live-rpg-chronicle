@@ -16,6 +16,7 @@ export class CharactersService {
     private database: AngularFireDatabase
   ) {
     this.characters = database.list('characters');
+    console.log(this.characters);
   }
 
   getCharacters(){
