@@ -1,10 +1,8 @@
-<div>
+<mat-card>
   <h2>Characters</h2>
-  <mat-card *ngFor="let character of characters | async" (click)="goToCharacterPage(character)">
-    <mat-card-content>
-      <p>Name: {{character.name}}</p>
-      <p>Age: {{character.age}}</p>
-      <p>Hair Color: {{character.haircolor}}</p>
-    </mat-card-content>
-  </mat-card>
-</div>
+  <ul>
+    <div *ngFor="let character of characters | async">
+      <button class="primaryBtn" mat-raised-button color="primary" (click)="console.log(character.name)">{{ character.name }}</button>
+    </div>
+  </ul>
+</mat-card>

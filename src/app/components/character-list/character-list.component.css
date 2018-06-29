@@ -1,0 +1,19 @@
+.primaryBtn{
+  margin-bottom: 4px;
+  width: 30%;
+}
+.secondaryBtn {
+  margin-top: 4px;
+  width: 90%;
+}
+
+.primaryBtnBox {
+  display: flex;
+  justify-content: center;
+
+}
+.secondaryBtnBox {
+  display: flex;
+  justify-content: center;
+
+}
