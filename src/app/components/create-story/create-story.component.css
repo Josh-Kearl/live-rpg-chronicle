@@ -1,0 +1,21 @@
+mat-form-field{
+  width: 40%;
+}
+
+.newStoryForm{
+  display: flex;
+  flex-direction: column;
+}
+
+.veryShort{
+  width: 10%;
+}
+
+.short{
+  width: 20%;
+}
+
+.primaryBtn{
+  margin-top: 50px;
+  width: 15%;
+}

@@ -1,3 +1,18 @@
-<p>
-  create-story works!
-</p>
+<form class="newStoryForm">
+  <mat-form-field appearance="legacy" class="short">
+    <mat-label>Title</mat-label>
+    <input #storyTitle matInput maxlength="25" placeholder="Quest for the Eternity Key" required>
+  </mat-form-field>
+  
+  <mat-radio-group #role required>
+    <mat-radio-button value="isNarrator" checked>Narrator</mat-radio-button><br>
+    <mat-radio-button value="isPlayer" [checked]="togglePlayerStatus()">Player</mat-radio-button>
+  </mat-radio-group>
+  
+  <mat-form-field appearance="legacy">
+    <mat-label>Story Opening</mat-label>
+    <textarea #prompt matInput placeholder="You find yourself stranded on a beach of black sand..." required></textarea>
+  </mat-form-field>
+  
+  <button mat-raised-button class="primaryBtn" color="primary" (click)="makeStory(storyTitle.value, role.value, prompt.value)">Create</button>
+</form>
