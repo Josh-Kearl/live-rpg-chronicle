@@ -6,10 +6,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./story-list.component.css']
 })
 export class StoryListComponent implements OnInit {
+  hideCreate = true;
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  openCreateMenu(){
+    this.hideCreate = false;
+    console.log("waa");
   }
 
 }
