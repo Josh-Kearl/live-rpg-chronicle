@@ -6,10 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./create-story.component.css']
 })
 export class CreateStoryComponent implements OnInit {
+  isPlayer: boolean;
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  togglePlayerStatus() {
+    console.log("This should toggle between player and narrator boolean");
   }
 
 }
