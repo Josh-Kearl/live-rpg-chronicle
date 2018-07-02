@@ -4,21 +4,21 @@ import { map } from 'rxjs/operators';
 import { Observable } from "rxjs/index";
 import 'core-js/es7/reflect';
 import { AngularFireDatabase, AngularFireList } from "angularfire2/database";
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { Character } from '../character';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class CharactersService {
-  characters: AngularFireList<any[]>;
+  private characters: AngularFirestoreCollection<Character>;
 
-  constructor(
-    private HttpClient,
-    private database: AngularFireDatabase
-  ) {
-    this.characters = database.list('characters');
+  constructor(db: AngularFirestore) {
+    this.characters = db.collection<Character>('/characters');
   }
 
-  getCharacters(){
-    return this.characters;
+  getCharacters(): Observable<Character[]>{
+    return this.characters.valueChanges();
   }
 }

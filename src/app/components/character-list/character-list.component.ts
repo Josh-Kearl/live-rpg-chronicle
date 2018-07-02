@@ -1,18 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from "angularfire2/firestore";
 import { Observable } from "rxjs/index";
+import { CharactersService } from "../../app-services/characters.service"
+import { Character } from '../../character';
 
 @Component({
   selector: 'app-character-list',
   templateUrl: './character-list.component.html',
   styleUrls: ['./character-list.component.css']
 })
-export class CharacterListComponent {
-  public characters: Observable<any[]>;
+export class CharacterListComponent implements OnInit {
+  characters$: Observable<Character[]>;
   hideCreate = true;
 
-  constructor(db: AngularFirestore) {
-    this.characters = db.collection('/characters').valueChanges();
+  constructor(private characterService: CharactersService) {
+  }
+
+  ngOnInit() {
+    this.getCharacters();
+    
   }
 
   displayCharacterName(character){
@@ -22,6 +28,15 @@ export class CharacterListComponent {
   openCreateMenu(){
     this.hideCreate = false;
     console.log("waa");
+  }
+
+  getCharacters(): void {
+      this.characters$ = this.characterService.getCharacters();
+      //this.characterService.getCharacters().subscribe(characters => this.characters = characters);
+  }
+
+  makeCharacter(){
+
   }
 
 }
