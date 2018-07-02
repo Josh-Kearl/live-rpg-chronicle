@@ -1,0 +1,21 @@
+mat-form-field{
+  width: 40%;
+}
+
+.newCharacterForm{
+  display: flex;
+  flex-direction: column;
+}
+
+.veryShort{
+  width: 10%;
+}
+
+.short{
+  width: 20%;
+}
+
+.primaryBtn{
+  margin-top: 50px;
+  width: 15%;
+}
