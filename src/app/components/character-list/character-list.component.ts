@@ -18,7 +18,7 @@ export class CharacterListComponent implements OnInit {
 
   ngOnInit() {
     this.getCharacters();
-    
+
   }
 
   displayCharacterName(character){
@@ -27,7 +27,6 @@ export class CharacterListComponent implements OnInit {
 
   openCreateMenu(){
     this.hideCreate = false;
-    console.log("waa");
   }
 
   getCharacters(): void {
