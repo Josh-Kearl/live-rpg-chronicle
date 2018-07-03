@@ -18,4 +18,18 @@ export class CharactersService {
   getCharacters(): Observable<Character[]>{
     return this.characters.valueChanges();
   }
+
+  addCharacter(name,gender,appearance,bio,item) {
+    let character = {
+      name: name,
+      gold: 0,
+      gender: gender,
+      appearance: appearance,
+      bio: bio,
+      inventory: [item]
+    };
+    this.characters.doc(character.name).set(character).then(function () {
+      console.log('character created!')
+    });
+  }
 }
