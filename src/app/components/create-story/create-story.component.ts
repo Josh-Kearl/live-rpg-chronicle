@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CharacterService } from "../../../../../Angular/c6-star-wars-app-animations-beginning/src/app/services/character.service";
+import { CharactersService } from 'src/app/app-services/characters.service';
 
 @Component({
   selector: 'app-create-story',
@@ -9,7 +9,7 @@ import { CharacterService } from "../../../../../Angular/c6-star-wars-app-animat
 export class CreateStoryComponent implements OnInit {
   isPlayer: boolean;
 
-  constructor(characterService: CharacterService) { }
+  constructor(characterService: CharactersService) { }
 
   ngOnInit() {
   }

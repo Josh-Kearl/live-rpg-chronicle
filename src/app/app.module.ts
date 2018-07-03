@@ -67,7 +67,6 @@ const appRoutes: Routes = [
       appRoutes
     ),
     FormsModule,
-    MaterialModule
 
   ],
   providers: [],
