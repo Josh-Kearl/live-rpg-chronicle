@@ -15,12 +15,13 @@ export class CharactersService {
     this.characters = db.collection<Character>('/characters');
   }
 
-  getCharacters(): Observable<Character[]>{
+  getCharacters(): Observable<Character[]> {
     return this.characters.valueChanges();
   }
 
-  addCharacter(name,gender,appearance,bio,item) {
+  addCharacter(name, gender, appearance, bio, item) {
     let character = {
+      id: this.makeId(),
       name: name,
       gold: 0,
       gender: gender,
@@ -28,8 +29,21 @@ export class CharactersService {
       bio: bio,
       inventory: [item]
     };
-    this.characters.doc(character.name).set(character).then(function () {
+    this.characters.doc(character.id).set(character).then(function () {
       console.log('character created!')
     });
+  }
+
+  makeId() {
+    let text = "";
+    let possibleLetter = "abcdefghijklmnopqrstuvwxyz";
+    let possibleNumber = "0123456789";
+
+    for (let i = 0; i < 3; i++)
+      text += possibleLetter.charAt(Math.floor(Math.random() * possibleLetter.length));
+    for (let i = 0; i < 4; i++)
+      text += possibleNumber.charAt(Math.floor(Math.random() * possibleNumber.length));
+    console.log(text);
+    return text;
   }
 }
