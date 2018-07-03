@@ -14,7 +14,6 @@
       <mat-option *ngFor="let character of characters" value="{{character.name}}">{{character.name}}</mat-option>
     </mat-select>
   </mat-form-field>
-  
   <mat-form-field appearance="legacy">
     <mat-label>Story Opening</mat-label>
     <textarea #prompt matInput placeholder="You find yourself stranded on a beach of black sand..." required></textarea>
