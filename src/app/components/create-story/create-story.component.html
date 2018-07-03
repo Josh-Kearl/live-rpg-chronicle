@@ -1,13 +1,19 @@
 <form class="newStoryForm">
   <mat-form-field appearance="legacy" class="short">
     <mat-label>Title</mat-label>
-    <input #storyTitle matInput maxlength="25" placeholder="Quest for the Eternity Key" required>
+    <input #storyTitle matInput maxlength="25" placeholder="Quest for the Eternity Key" [required]>
   </mat-form-field>
   
-  <mat-radio-group #role required>
-    <mat-radio-button value="isNarrator" checked>Narrator</mat-radio-button><br>
-    <mat-radio-button value="isPlayer" [checked]="togglePlayerStatus()">Player</mat-radio-button>
+  <mat-radio-group #role>
+    <mat-radio-button value="isNarrator" (change)="togglePlayerStatus()" checked>Narrator</mat-radio-button><br>
+    <mat-radio-button value="isPlayer" (change)="togglePlayerStatus()">Player</mat-radio-button>
   </mat-radio-group>
+  
+  <mat-form-field class="short" required *ngIf="isPlayer">
+    <mat-select #playerChoice placeholder="Gender">
+      <mat-option *ngFor="let character of characters" value="{{character.name}}">{{character.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
   
   <mat-form-field appearance="legacy">
     <mat-label>Story Opening</mat-label>
