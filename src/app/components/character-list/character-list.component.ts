@@ -24,7 +24,7 @@ export class CharacterListComponent implements OnInit {
 
   }
 
-  displayCharacterName(character){
+  openCharacterDetails(character){
     console.log(character.name);
   }
 

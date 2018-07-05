@@ -1,15 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CharactersService } from '../../app-services/characters.service';
-import { AngularFirestoreCollection } from "angularfire2/firestore";
-
-export interface Character {
-  id: string;
-  name: string;
-  haircolor: string;
-  age: number;
-  gold: number;
-  inventory: Array<string>;
-}
+import { Observable } from "rxjs/index";
+import { Character } from "../../character";
 
 @Component({
   selector: 'app-character-detail',
@@ -17,12 +9,16 @@ export interface Character {
   styleUrls: ['./character-detail.component.css']
 })
 export class CharacterDetailComponent implements OnInit {
-  private characterList: AngularFirestoreCollection<Character>;
+  characters$: Observable<Character[]>;
 
-  constructor(
-  ) { }
+  constructor(private charactersService: CharactersService) { }
 
   ngOnInit() {
+    this.getCharacters();
+  }
+
+  getCharacters(){
+    this.characters$ = this.charactersService.getCharacters();
   }
 
 }
