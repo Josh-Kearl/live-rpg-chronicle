@@ -18,13 +18,14 @@ import { environment } from '../environments/environment';
 import { AngularFireModule } from "angularfire2";
 import { AngularFireDatabaseModule } from "angularfire2/database";
 import { AngularFireAuthModule } from "angularfire2/auth";
-import { SideNavComponent } from './components/story/side-nav/side-nav.component';
+
 import { MaterialModule } from "./material.module";
 import { RouterModule, Routes } from "@angular/router";
 import { FormsModule } from "@angular/forms";
 import { LoginComponent } from "./components/login/login.component";
 import { AngularFirestoreModule } from "angularfire2/firestore";
 import { MatInputModule, MatRadioModule, MatSelectModule } from "@angular/material";
+import { SideNavComponent } from './components/story/side-nav/side-nav.component';
 
 const appRoutes: Routes = [
   {path: 'dashboard', component: DashboardComponent},
@@ -52,7 +53,7 @@ const appRoutes: Routes = [
     InventoryComponent,
     FriendsComponent,
     LoginComponent,
-    SideNavComponent
+    SideNavComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,9 +69,7 @@ const appRoutes: Routes = [
       appRoutes
     ),
     FormsModule,
-    MatInputModule,
-    MatSelectModule,
-    MatRadioModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
