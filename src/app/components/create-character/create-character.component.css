@@ -1,5 +1,5 @@
 mat-form-field{
-  width: 40%;
+  width: 100%;
 }
 
 .newCharacterForm{
@@ -8,11 +8,15 @@ mat-form-field{
 }
 
 .veryShort{
-  width: 10%;
+  width: 20%;
 }
 
 .short{
-  width: 20%;
+  width: 30%;
+}
+
+.long{
+  width: 90%;
 }
 
 .primaryBtn{

@@ -4,7 +4,6 @@
     <mat-list *ngFor="let character of characters$ | async">
       <button class="primaryBtn" mat-raised-button color="primary" (click)="displayCharacterName(this.character)">{{ character?.name }}</button>
     </mat-list>
-    <button class="secondaryBtn" mat-raised-button color="secondary" (click)="openCreateMenu()">Create New</button>
+    <button class="secondaryBtn" mat-raised-button color="secondary" (click)="openCreate()">Create New</button>
   </ul>
-  <app-create-character *ngIf="!hideCreate"></app-create-character>
 </mat-card>

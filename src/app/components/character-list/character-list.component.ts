@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from "angularfire2/firestore";
+import { Component, OnInit, Inject } from '@angular/core';
 import { Observable } from "rxjs/index";
 import { CharactersService } from "../../app-services/characters.service"
 import { Character } from '../../character';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { CreateCharacterComponent } from "../create-character/create-character.component";
 
 @Component({
   selector: 'app-character-list',
@@ -11,9 +12,11 @@ import { Character } from '../../character';
 })
 export class CharacterListComponent implements OnInit {
   characters$: Observable<Character[]>;
-  hideCreate = true;
 
-  constructor(private characterService: CharactersService) {
+  constructor(
+    private characterService: CharactersService,
+    public dialog: MatDialog
+  ) {
   }
 
   ngOnInit() {
@@ -25,17 +28,20 @@ export class CharacterListComponent implements OnInit {
     console.log(character.name);
   }
 
-  openCreateMenu(){
-    this.hideCreate = false;
-  }
-
   getCharacters(): void {
       this.characters$ = this.characterService.getCharacters();
       //this.characterService.getCharacters().subscribe(characters => this.characters = characters);
   }
 
-  makeCharacter(){
+  openCreate(): void {
+    const dialogRef = this.dialog.open(CreateCharacterComponent, {
+      width: '80%',
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 
-}
+
+  }
