@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CharactersService } from "../../app-services/characters.service";
-import { Observable } from "rxjs/index";
-import { CharacterListComponent } from "../character-list/character-list.component";
+import { Observable } from "rxjs";
 import { Character} from "../../character";
 
 @Component({
@@ -23,8 +22,7 @@ export class CreateCharacterComponent implements OnInit {
 
   }
 
-  makeCharacter(name,gender,appearance,bio,item) {
-    this.charactersService.addCharacter(name,gender,appearance,bio,item);
+  makeCharacter(name, gender, appearance, bio, item) {
+    this.charactersService.addCharacter(name, gender, appearance, bio, item);
   }
-
 }

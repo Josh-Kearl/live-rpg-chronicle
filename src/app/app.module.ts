@@ -27,7 +27,7 @@ import { AngularFirestoreModule } from "angularfire2/firestore";
 
 const appRoutes: Routes = [
   {path: 'dashboard', component: DashboardComponent},
-  {path: 'character-detail', component: CharacterDetailComponent},
+  {path: 'character/:id', component: CharacterDetailComponent},
   {path: 'character-list', component: CharacterListComponent, data: {title: 'Characters'}},
   {path: 'create-character', component: CreateCharacterComponent},
   {path: 'inventory', component: InventoryComponent},

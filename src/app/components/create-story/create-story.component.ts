@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CharactersService } from 'src/app/app-services/characters.service';
-import { Character } from "../character-detail/character-detail.component";
 import { Observable } from "rxjs/index";
+import { Character} from '../../character';
+import * as data from './random_prompts.json';
+
 
 @Component({
   selector: 'app-create-story',
@@ -30,8 +32,13 @@ export class CreateStoryComponent implements OnInit {
     console.log("toggled isPlayer variable " + this.isPlayer);
   }
 
-  openCreateMenu(){
-    this.hideCreate = false;
+  randomPrompt(){
+    let number = Math.floor(Math.random() * 10 + 1);
+    document.getElementById('prompt').innerText = data.randomPrompts[number];
+  }
+
+  makeStory(title,player,prompt) {
+    this.characterService.addStory(name, player, prompt);
   }
 
 }

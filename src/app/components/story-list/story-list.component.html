@@ -1,5 +1,7 @@
 <mat-card>
   <h2>Stories</h2>
-    <button class="secondaryBtn" mat-raised-button color="secondary" (click)="openCreateMenu()">Create New</button>
-  <app-create-story *ngIf="!hideCreate"></app-create-story>
+  <mat-list *ngFor="let story of stories$ | async">
+    <button class="primaryBtn" mat-raised-button color="primary">{{ story?.title }}</button>
+  </mat-list>
+  <button class="secondaryBtn" mat-raised-button color="secondary" (click)="openCreateMenu()">Create New</button>
 </mat-card>

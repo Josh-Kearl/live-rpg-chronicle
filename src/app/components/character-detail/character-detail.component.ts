@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CharactersService } from '../../app-services/characters.service';
 import { Observable } from "rxjs/index";
 import { Character } from "../../character";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: 'app-character-detail',
@@ -9,15 +10,23 @@ import { Character } from "../../character";
   styleUrls: ['./character-detail.component.css']
 })
 export class CharacterDetailComponent implements OnInit {
-  characters$: Observable<Character[]>;
+  activeCharacter: Character;
 
-  constructor(private charactersService: CharactersService) { }
 
-  ngOnInit() {
-    this.getCharacters();
+  constructor(
+    private charactersService: CharactersService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+  ) {
   }
 
-  getCharacters(){
+  ngOnInit() {
+    this.charactersService
+      .getDetails(this.activatedRoute.snapshot.params['id'])
+      .subscribe(character => this.activeCharacter = character)
+  }
+
+  getCharacters() {
     this.characters$ = this.charactersService.getCharacters();
   }
 

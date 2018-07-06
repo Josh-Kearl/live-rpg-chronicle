@@ -1,13 +1,11 @@
-<mat-card class="details-container">
+<mat-card class="details-container" *ngIf="activeCharacter">
   <mat-card-content>
     <div>
-      <h2>{{character.name}}</h2>
-      <p>Gender: {{character.gender}}</p>
-      <p>Hair Color: {{character.haircolor}}</p>
+      <h2>{{activeCharacter.name}}</h2>
+      <p>Gender: {{activeCharacter.gender}}</p>
+      <p>Appearance: {{activeCharacter.appearance}}</p>
+      <p>Bio: {{activeCharacter.bio}}</p>
       <h3>Inventory</h3>
-      <ul>
-        <li *ngFor="let item of inventory">{{item[0]}}
-      </ul>
     </div>
     <!--Delete Character-->
   </mat-card-content>
