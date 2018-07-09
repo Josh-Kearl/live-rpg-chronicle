@@ -2,13 +2,15 @@
   <mat-card-content>
     <div>
       <h2>{{activeCharacter.name}}</h2>
-      <p>Gender: {{activeCharacter.gender}}</p>
-      <p>Appearance: {{activeCharacter.appearance}}</p>
-      <p>Bio: {{activeCharacter.bio}}</p>
-      <h3>Inventory</h3>
+      <p><span style="font-weight: bold">Gender:</span> {{activeCharacter.gender}}</p>
+      <p><span style="font-weight: bold">Appearance:</span> {{activeCharacter.appearance}}</p>
+      <p><span style="font-weight: bold">Bio:</span> {{activeCharacter.bio}}</p>
+      <!--<button mat-raised-button color="primary" (click)="openInventory()">Inventory</button>-->
+      <button mat-raised-button color="primary" [routerLink]="['/inventory', activeCharacter.id]" routerLinkActive="active" (click)="openInventory()">Inventory</button>
+
     </div>
     <!--Delete Character-->
   </mat-card-content>
 </mat-card>
 <br>
-<button mat-button (click)="back()">Back</button>
+<button mat-raised-button color="warn" (click)="back()">Back</button>

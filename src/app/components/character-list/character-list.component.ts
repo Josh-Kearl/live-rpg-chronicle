@@ -3,8 +3,8 @@ import {Observable} from 'rxjs/index';
 import {CharactersService} from '../../app-services/characters.service';
 import {Character} from '../../character';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import {CreateCharacterComponent} from '../create-character/create-character.component';
 import {CharacterDetailComponent} from '../character-detail/character-detail.component';
+import {CreateCharacterComponent} from '../create-character/create-character.component';
 
 @Component({
   selector: 'app-character-list',
@@ -25,10 +25,6 @@ export class CharacterListComponent implements OnInit {
     this.characterService.getCharacters().subscribe(characters => {
       this.characters = characters;
     });
-  }
-
-  openCharacterDetails(character) {
-
   }
 
   getCharacters(): void {

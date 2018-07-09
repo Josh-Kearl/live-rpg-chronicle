@@ -1,3 +1,11 @@
-<p>
-  inventory works!
-</p>
+<div class="details-container" *ngIf="data">
+    <div>
+      <h2>{{data.name}}'s Inventory</h2>
+      <ul>
+        <li *ngFor="let item of inventory">{{item}}</li>
+      </ul>
+    </div>
+</div>
+<br>
+<button mat-raised-button class="secondaryBtn" color="warn" [mat-dialog-close]="true">Cancel</button>
+
