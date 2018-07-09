@@ -1,7 +1,7 @@
 export class Character {
 
   constructor(
-    private id: number,
+    public id: string,
     public name: string,
     public gender: string,
     public appearance: string,

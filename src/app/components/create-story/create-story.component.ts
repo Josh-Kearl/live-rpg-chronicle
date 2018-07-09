@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CharactersService } from 'src/app/app-services/characters.service';
 import { Observable } from "rxjs/index";
 import { Character} from '../../character';
-import * as data from './random_prompts.json';
+import { randomPrompts} from "./randomPrompts";
 
 
 @Component({
@@ -34,7 +34,7 @@ export class CreateStoryComponent implements OnInit {
 
   randomPrompt(){
     let number = Math.floor(Math.random() * 10 + 1);
-    document.getElementById('prompt').innerText = data.randomPrompts[number];
+    document.getElementById('prompt').innerText = randomPrompts[number];
   }
 
   makeStory(title,player,prompt) {

@@ -4,17 +4,17 @@
     <input #storyTitle matInput maxlength="50" placeholder="Quest for the Eternity Key" required>
   </mat-form-field>
 
-  <mat-radio-group #role>
+  <mat-radio-group>
     <mat-radio-button value="isNarrator" (change)="togglePlayerStatus()" checked>Narrator</mat-radio-button><br>
     <mat-radio-button value="isPlayer" (change)="togglePlayerStatus()">Player</mat-radio-button>
   </mat-radio-group>
 
-  <mat-form-field class="short" *ngIf="isPlayer" required>
+  <mat-form-field class="short" required>
     <mat-select #playerChoice placeholder="Character">
       <mat-option #player *ngFor="let character of characters$ | async" value="{{character.name}}">{{character.name}}</mat-option>
     </mat-select>
   </mat-form-field>
-  <button *ngIf="isPlayer" mat-raised-button class="secondaryBtn" color="accent" (click)="openCreateMenu()">New Character</button>
+  <button mat-raised-button class="secondaryBtn" color="accent" (click)="openCreateMenu()">New Character</button>
   <app-create-character *ngIf="!hideCreate" ></app-create-character>
 
   <mat-form-field appearance="legacy" *ngIf="!isPlayer">
@@ -24,6 +24,6 @@
   </mat-form-field>
   <button *ngIf="!isPlayer" mat-raised-button class="secondaryBtn" color="accent" (click)="randomPrompt()">Random Prompt</button>
 
-  <button mat-raised-button class="primaryBtn" color="primary" (click)="makeStory(storyTitle.value, character.value, prompt.value)">Create</button>
+  <button mat-raised-button class="primaryBtn" color="primary" (click)="makeStory(storyTitle.value, player.value, prompt.value)" [mat-dialog-close]="true">Create</button>
   <button mat-raised-button class="secondaryBtn" color="warn" [mat-dialog-close]="true">Cancel</button>
 </form>

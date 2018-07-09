@@ -4,7 +4,8 @@ import 'core-js/es7/reflect';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Character } from '../character';
 import { Story } from '../story';
-import { map } from "../../../../Firebase/Firebasics/node_modules/inquirer/node_modules/rxjs/operator/map";
+import { map } from "rxjs/operators";
+import { BehaviorSubject } from "../../../../Firebase/Firebasics/node_modules/rxjs";
 
 
 @Injectable({
@@ -12,7 +13,8 @@ import { map } from "../../../../Firebase/Firebasics/node_modules/inquirer/node_
 })
 export class CharactersService {
   private characters: AngularFirestoreCollection<Character>;
-  private stories: AngularFirestoreCollection<Character>;
+  private stories: AngularFirestoreCollection<Story>;
+  activeCharacter = new BehaviorSubject<Character>(null);
 
   constructor(db: AngularFirestore) {
     this.characters = db.collection<Character>('/characters');
@@ -56,7 +58,7 @@ export class CharactersService {
 
   getDetails(id: string): Observable<Character> {
     return this.getCharacters().pipe(map((characters: Character[]) => {
-      return characters.find((character: Character) => character.id === id);
+      return characters.find((character: Character) => character.id == id);
     }));
   }
 

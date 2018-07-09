@@ -28,6 +28,6 @@
     <input #item matInput maxlength="25" placeholder="Heirloom sword" value="">
   </mat-form-field>
 
-  <button mat-raised-button class="primaryBtn" color="primary" (click)="makeCharacter(characterName.value,gender.value, appearance.value, bio.value, item.value)">Create</button>
+  <button mat-raised-button class="primaryBtn" color="primary" (click)="makeCharacter(characterName.value,gender.value, appearance.value, bio.value, item.value)" [mat-dialog-close]="true">Create</button>
   <button mat-raised-button class="secondaryBtn" color="warn" [mat-dialog-close]="true">Cancel</button>
 </form>

@@ -13,16 +13,18 @@ import {CharacterDetailComponent} from '../character-detail/character-detail.com
 })
 export class CharacterListComponent implements OnInit {
   characters$: Observable<Character[]>;
+  characters: Character[];
 
   constructor(
     private characterService: CharactersService,
     public dialog: MatDialog
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
     this.getCharacters();
-
+    this.characterService.getCharacters().subscribe(characters => {
+      this.characters = characters;
+    });
   }
 
   openCharacterDetails(character) {
