@@ -1,10 +1,10 @@
-import { MediaMatcher } from '@angular/cdk/layout';
 import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { MediaMatcher } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-side-nav',
+  styleUrls: ['./side-nav.component.css'],
   templateUrl: './side-nav.component.html',
-  styleUrls: ['./side-nav.component.css']
 })
 export class SideNavComponent implements OnInit, OnDestroy {
   mobileQuery: MediaQueryList;

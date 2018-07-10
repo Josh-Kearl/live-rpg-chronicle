@@ -18,6 +18,7 @@ import { environment } from '../environments/environment';
 import { AngularFireModule } from "angularfire2";
 import { AngularFireDatabaseModule } from "angularfire2/database";
 import { AngularFireAuthModule } from "angularfire2/auth";
+import { CoreModule } from './core/core.module';
 
 import { MaterialModule } from "./material.module";
 import { RouterModule, Routes } from "@angular/router";
@@ -54,6 +55,7 @@ const appRoutes: Routes = [
     FriendsComponent,
     LoginComponent,
     SideNavComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -65,10 +67,9 @@ const appRoutes: Routes = [
     MaterialModule,
     FormsModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot(
-      appRoutes
-    ),
+    RouterModule.forRoot(appRoutes),
     FormsModule,
+    CoreModule,
     
   ],
   providers: [],
