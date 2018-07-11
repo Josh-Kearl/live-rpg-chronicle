@@ -22,14 +22,14 @@ export class CharacterListComponent implements OnInit {
 
   ngOnInit() {
     this.getCharacters();
-    this.characterService.getCharacters().subscribe(characters => {
+    this.characterService.getCharactersFB().subscribe(characters => {
       this.characters = characters;
     });
   }
 
   getCharacters(): void {
-    this.characters$ = this.characterService.getCharacters();
-    //this.characterService.getCharacters().subscribe(characters => this.characters = characters);
+    this.characters$ = this.characterService.getCharactersFB();
+    // this.characterService.getCharacters().subscribe(characters => this.characters = characters);
   }
 
   openCreate(): void {

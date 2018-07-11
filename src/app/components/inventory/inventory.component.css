@@ -1,0 +1,14 @@
+.addBtn {
+  max-width: 30px;
+  margin: 5px 0 5px 0;
+  text-align: center;
+  background-color: limegreen;
+  vertical-align: middle;
+  horiz-align: center;
+  color: white;
+  font-size: 14pt;
+}
+
+.scrolling {
+  overflow: scroll;
+}

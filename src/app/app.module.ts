@@ -24,13 +24,15 @@ import { RouterModule, Routes } from "@angular/router";
 import { FormsModule } from "@angular/forms";
 import { LoginComponent } from "./components/login/login.component";
 import { AngularFirestoreModule } from "angularfire2/firestore";
+import { HttpModule } from '@angular/http';
+import {HttpClientModule} from '@angular/common/http';
 
 const appRoutes: Routes = [
   {path: 'dashboard', component: DashboardComponent},
   {path: 'character/:id', component: CharacterDetailComponent},
   {path: 'character-list', component: CharacterListComponent, data: {title: 'Characters'}},
   {path: 'create-character', component: CreateCharacterComponent},
-  {path: 'inventory', component: InventoryComponent},
+  {path: 'inventory/:id', component: InventoryComponent, data: {title: 'Characters'}},
   {path: 'create-story', component: CreateStoryComponent},
   {path: 'friends', component: FriendsComponent},
   {path: 'story', component: StoryComponent},
@@ -51,7 +53,7 @@ const appRoutes: Routes = [
     InventoryComponent,
     FriendsComponent,
     LoginComponent,
-    SideNavComponent
+    SideNavComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,9 +69,13 @@ const appRoutes: Routes = [
       appRoutes
     ),
     FormsModule,
-
+    HttpModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    // {provide: MAT_DIALOG_DATA, useValue: {}},
+    // {provide: MatDialogRef, useValue: {}}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

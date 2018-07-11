@@ -18,7 +18,7 @@ export class CreateCharacterComponent implements OnInit {
   }
 
   getCharacters(){
-    this.characters$ = this.charactersService.getCharacters();
+    this.characters$ = this.charactersService.getCharactersFB();
 
   }
 

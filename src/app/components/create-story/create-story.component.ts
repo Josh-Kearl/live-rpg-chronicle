@@ -23,7 +23,7 @@ export class CreateStoryComponent implements OnInit {
   }
 
   getCharacters(): void {
-    this.characters$ = this.characterService.getCharacters();
+    this.characters$ = this.characterService.getCharactersFB();
     //this.characterService.getCharacters().subscribe(characters => this.characters = characters);
   }
 
