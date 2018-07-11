@@ -21,7 +21,7 @@ export class CharactersService {
     this.stories = db.collection<Story>('/stories');
   }
 
-  getCharacters(): Observable<Character[]> {
+  getCharactersFB(): Observable<Character[]> {
     return this.characters.valueChanges();
   }
 
@@ -57,7 +57,7 @@ export class CharactersService {
   }
 
   getDetails(id: string): Observable<Character> {
-    return this.getCharacters().pipe(map((characters: Character[]) => {
+    return this.getCharactersFB().pipe(map((characters: Character[]) => {
       return characters.find((character: Character) => character.id == id);
     }));
   }
