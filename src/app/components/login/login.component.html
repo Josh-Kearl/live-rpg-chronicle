@@ -1,8 +1,38 @@
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<div *ngIf="auth.user | async; then authenticated else guest">
 
-<body>
+</div>
 
-<mat-card>
+
+<ng-template #guest>
+  <h3>Welcome, Guest</h3>
+  <p>Login to get started...</p>
+
+    <button (click)="auth.facebookLogin()">
+        <i class="fa fa-facebook-square"></i>Connect Facebook
+    </button>
+    <button (click)="auth.googleLogin()">
+       <i class="fa fa-google"></i>Connect Google
+    </button>
+    <!-- <button (click)="auth.emailLogin()">
+        <i class="fas fa-envelope"></i>Connect Email
+    </button> -->
+
+</ng-template>
+
+<ng-template #authenticated>
+  <div *ngIf="auth.user | async as user">
+    <h3>Welcome, {{user.displayName}}</h3>
+    <img [src]="user.photoURL">
+    <p>UID: {{user.uid}}</p>
+    <button (click)="auth.signOut()">Logout</button>
+  </div>
+
+
+</ng-template>
+
+
+
+<!-- <mat-card>
   <mat-card-header>
     <h2 class="text">Login</h2>
   </mat-card-header>
@@ -16,5 +46,4 @@
   </mat-card-content>
 </mat-card>
 
-<br><br>
-</body>
+<br><br> -->
