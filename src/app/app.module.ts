@@ -15,17 +15,18 @@ import { InventoryComponent } from './components/inventory/inventory.component';
 import { FriendsComponent } from './components/friends/friends.component';
 import { AppRoutingModule } from './app-routing.module';
 import { environment } from '../environments/environment';
-import { AngularFireModule } from "angularfire2";
-import { AngularFireDatabaseModule } from "angularfire2/database";
-import { CoreModule } from './core/core.module';
-
-import { MaterialModule } from "./material.module";
-import { RouterModule, Routes } from "@angular/router";
-import { FormsModule } from "@angular/forms";
-import { LoginComponent } from "./components/login/login.component";
-import { AngularFirestoreModule } from "angularfire2/firestore";
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { SideNavComponent } from './components/story/side-nav/side-nav.component';
+import { MaterialModule } from './material.module';
+import { RouterModule, Routes } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './components/login/login.component';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { HttpModule } from '@angular/http';
-import {HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+import { CoreModule } from './core/core.module';
 import { SideNavComponent } from './components/story/side-nav/side-nav.component';
 
 const appRoutes: Routes = [
