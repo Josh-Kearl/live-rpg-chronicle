@@ -13,6 +13,11 @@ import {CreateStoryComponent} from '../create-story/create-story.component';
 })
 export class StoryListComponent implements OnInit {
   stories$: Observable<Story[]>;
+  loaded: boolean = false;
+
+  x.onload = function(){
+
+  };
 
   constructor(
     private characterService: CharactersService,
