@@ -1,10 +1,16 @@
-<mat-card class="details-container">
+<mat-card class="details-container" *ngIf="activeCharacter">
   <mat-card-content>
     <div>
-      <h2>{{character.name}}</h2>
-      <p>Age: {{character.age}}</p>
-      <p>Hair Color: {{character.haircolor}}</p>
-      <h3>Story</h3>
+      <h2>{{activeCharacter.name}}</h2>
+      <p><span style="font-weight: bold">Gender:</span> {{activeCharacter.gender}}</p>
+      <p><span style="font-weight: bold">Appearance:</span> {{activeCharacter.appearance}}</p>
+      <p><span style="font-weight: bold">Bio:</span> {{activeCharacter.bio}}</p>
+      <!--<button mat-raised-button color="primary" (click)="openInventory()">Inventory</button>-->
+      <button mat-raised-button color="primary" [routerLink]="['/inventory', activeCharacter.id]" routerLinkActive="active" (click)="openInventory()">Inventory</button>
+
     </div>
+    <!--Delete Character-->
   </mat-card-content>
 </mat-card>
+<br>
+<button mat-raised-button color="warn" (click)="back()">Back</button>

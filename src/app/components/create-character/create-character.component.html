@@ -3,30 +3,31 @@
     <mat-label>Name</mat-label>
     <input #characterName matInput maxlength="25" placeholder="Sir Calvin the Bold" required>
   </mat-form-field>
-  
+
   <mat-form-field class="veryShort">
     <mat-select #gender placeholder="Gender">
       <mat-option value="male">Male</mat-option>
       <mat-option value="female">Female</mat-option>
     </mat-select>
   </mat-form-field>
-  
-  <mat-form-field appearance="legacy">
+
+  <mat-form-field appearance="legacy" class="long">
     <mat-label>Appearance</mat-label>
     <textarea #appearance maxlength="200" matInput placeholder="Blue eyes, blonde hair and mustache, tends to dress in shades of red."></textarea>
     <mat-hint align="end">{{appearance.value?.length || 0}}/200</mat-hint>
   </mat-form-field>
-  
-  <mat-form-field appearance="legacy">
+
+  <mat-form-field appearance="legacy" class="long">
     <mat-label>Biography</mat-label>
     <textarea #bio matInput maxlength="350" placeholder="Calvin was born the son of a woodcutter in a small forest village..."></textarea>
     <mat-hint align="end">{{bio.value?.length || 0}}/350</mat-hint>
   </mat-form-field>
-  
-  <mat-form-field appearance="legacy" class="short" hintLabel="You can begin the story with one item of your chocie in your inventory.">
+
+  <mat-form-field appearance="legacy" class="short" hintLabel="You can begin the story with one item of your choice in your inventory.">
     <mat-label>Inventory</mat-label>
-    <input #item matInput maxlength="25" placeholder="Heirloom sword" value="">
+    <input #item matInput maxlength="35" placeholder="Heirloom sword" value="">
   </mat-form-field>
-  
-  <button mat-raised-button class="primaryBtn" color="primary" (click)="makeCharacter(characterName.value,gender.value, appearance.value, bio.value, item.value)">Create</button>
+
+  <button mat-raised-button class="primaryBtn" color="primary" (click)="makeCharacter(characterName.value,gender.value, appearance.value, bio.value, item.value)" [mat-dialog-close]="true">Create</button>
+  <button mat-raised-button class="secondaryBtn" color="warn" [mat-dialog-close]="true">Cancel</button>
 </form>

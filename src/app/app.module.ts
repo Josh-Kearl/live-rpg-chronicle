@@ -24,15 +24,16 @@ import { RouterModule, Routes } from "@angular/router";
 import { FormsModule } from "@angular/forms";
 import { LoginComponent } from "./components/login/login.component";
 import { AngularFirestoreModule } from "angularfire2/firestore";
-import { MatInputModule, MatRadioModule, MatSelectModule } from "@angular/material";
+import { HttpModule } from '@angular/http';
+import {HttpClientModule} from '@angular/common/http';
 import { SideNavComponent } from './components/story/side-nav/side-nav.component';
 
 const appRoutes: Routes = [
   {path: 'dashboard', component: DashboardComponent},
-  {path: 'character-detail', component: CharacterDetailComponent},
+  {path: 'character/:id', component: CharacterDetailComponent},
   {path: 'character-list', component: CharacterListComponent, data: {title: 'Characters'}},
   {path: 'create-character', component: CreateCharacterComponent},
-  {path: 'inventory', component: InventoryComponent},
+  {path: 'inventory/:id', component: InventoryComponent, data: {title: 'Characters'}},
   {path: 'create-story', component: CreateStoryComponent},
   {path: 'friends', component: FriendsComponent},
   {path: 'story', component: StoryComponent},
@@ -69,8 +70,14 @@ const appRoutes: Routes = [
     FormsModule,
     CoreModule,
     
+    HttpModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    
+    // {provide: MAT_DIALOG_DATA, useValue: {}},
+    // {provide: MatDialogRef, useValue: {}}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
