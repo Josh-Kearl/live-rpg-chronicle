@@ -1,21 +1,25 @@
-import {Component, ViewChild} from '@angular/core';
-import { MatSidenav } from '@angular/material/sidenav';
-
-/** @title Sidenav with custom escape and backdrop click behavior */
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { MediaMatcher } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-side-nav',
-  templateUrl: './side-nav.component.html',
   styleUrls: ['./side-nav.component.css'],
+  templateUrl: './side-nav.component.html',
 })
-export class SideNavComponent {
-  @ViewChild('sidenav') sidenav: MatSidenav;
+export class SideNavComponent implements OnInit, OnDestroy {
+  mobileQuery: MediaQueryList;
+  private _mobileQueryListener: () => void;
 
-  reason = '';
+  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+    this.mobileQuery = media.matchMedia('(max-width: 600px)');
+    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addListener(this._mobileQueryListener);
+   }
 
-  close(reason: string) {
-    this.reason = reason;
-    this.sidenav.close();
+  ngOnInit() {
   }
 
+  ngOnDestroy(): void {
+    this.mobileQuery.removeListener(this._mobileQueryListener);
+  }
 }

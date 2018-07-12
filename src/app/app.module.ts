@@ -17,8 +17,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { environment } from '../environments/environment';
 import { AngularFireModule } from "angularfire2";
 import { AngularFireDatabaseModule } from "angularfire2/database";
-import { AngularFireAuthModule } from "angularfire2/auth";
-import { SideNavComponent } from './components/story/side-nav/side-nav.component';
+import { CoreModule } from './core/core.module';
+
 import { MaterialModule } from "./material.module";
 import { RouterModule, Routes } from "@angular/router";
 import { FormsModule } from "@angular/forms";
@@ -26,6 +26,7 @@ import { LoginComponent } from "./components/login/login.component";
 import { AngularFirestoreModule } from "angularfire2/firestore";
 import { HttpModule } from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
+import { SideNavComponent } from './components/story/side-nav/side-nav.component';
 
 const appRoutes: Routes = [
   {path: 'dashboard', component: DashboardComponent},
@@ -54,6 +55,7 @@ const appRoutes: Routes = [
     FriendsComponent,
     LoginComponent,
     SideNavComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -61,18 +63,18 @@ const appRoutes: Routes = [
     AngularFireModule.initializeApp(environment.firebase, 'rpg-chronicle'),
     AngularFirestoreModule,
     AngularFireDatabaseModule,
-    AngularFireAuthModule,
     MaterialModule,
     FormsModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot(
-      appRoutes
-    ),
+    RouterModule.forRoot(appRoutes),
     FormsModule,
+    CoreModule,
+    
     HttpModule,
     HttpClientModule,
   ],
   providers: [
+    
     // {provide: MAT_DIALOG_DATA, useValue: {}},
     // {provide: MatDialogRef, useValue: {}}
   ],

@@ -43,7 +43,7 @@ import {
     MatSortModule,
     MatPaginatorModule,
     MatSnackBarModule,
-    MatRadioModule
+    MatRadioModule,
   ],
   exports: [
     MatButtonModule,
@@ -65,7 +65,7 @@ import {
     MatSortModule,
     MatPaginatorModule,
     MatSnackBarModule,
-    MatRadioModule
+    MatRadioModule,
   ]
 })
 export class MaterialModule { }

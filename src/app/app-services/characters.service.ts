@@ -5,7 +5,7 @@ import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/fires
 import { Character } from '../character';
 import { Story } from '../story';
 import { map } from "rxjs/operators";
-import { BehaviorSubject } from "../../../../Firebase/Firebasics/node_modules/rxjs";
+
 
 
 @Injectable({
@@ -14,7 +14,7 @@ import { BehaviorSubject } from "../../../../Firebase/Firebasics/node_modules/rx
 export class CharactersService {
   private characters: AngularFirestoreCollection<Character>;
   private stories: AngularFirestoreCollection<Story>;
-  activeCharacter = new BehaviorSubject<Character>(null);
+  //activeCharacter = new BehaviorSubject<Character>(null);
 
   constructor(db: AngularFirestore) {
     this.characters = db.collection<Character>('/characters');
