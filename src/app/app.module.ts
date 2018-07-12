@@ -27,7 +27,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from './core/core.module';
-import { SideNavComponent } from './components/story/side-nav/side-nav.component';
+
 
 const appRoutes: Routes = [
   {path: 'dashboard', component: DashboardComponent},
@@ -75,6 +75,7 @@ const appRoutes: Routes = [
     HttpClientModule,
   ],
   providers: [
+    
     
     // {provide: MAT_DIALOG_DATA, useValue: {}},
     // {provide: MatDialogRef, useValue: {}}
