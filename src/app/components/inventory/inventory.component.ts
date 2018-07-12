@@ -1,9 +1,9 @@
-import {Component, OnInit, Inject} from '@angular/core';
-import {Observable} from 'rxjs';
-import {Character} from '../../character';
-import {ActivatedRoute, Router} from '@angular/router';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
+import { Component, OnInit, Inject } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Character } from '../../character';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 
 @Component({
   selector: 'inventory',
