@@ -17,7 +17,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { environment } from '../environments/environment';
 import { AngularFireModule } from "angularfire2";
 import { AngularFireDatabaseModule } from "angularfire2/database";
-import { AngularFireAuthModule } from "angularfire2/auth";
 import { CoreModule } from './core/core.module';
 
 import { MaterialModule } from "./material.module";
@@ -63,7 +62,6 @@ const appRoutes: Routes = [
     AngularFireModule.initializeApp(environment.firebase, 'rpg-chronicle'),
     AngularFirestoreModule,
     AngularFireDatabaseModule,
-    AngularFireAuthModule,
     MaterialModule,
     FormsModule,
     BrowserAnimationsModule,
