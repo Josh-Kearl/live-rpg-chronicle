@@ -1,9 +1,9 @@
-import {Component, OnInit, Inject} from '@angular/core';
-import {Observable} from 'rxjs';
-import {Character} from '../../character';
-import {ActivatedRoute, Router} from '@angular/router';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
+import { Component, OnInit, Inject } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Character } from '../../character';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 
 @Component({
   selector: 'inventory',
@@ -12,9 +12,9 @@ import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firesto
 })
 export class InventoryComponent implements OnInit {
   private characters: AngularFirestoreCollection<Character>;
-  activeCharacter: Character;
-  inventory$: Array<string>;
+  inventory: string[] = [];
   inventoryRef: any;
+  newItem: string;
 
 
   constructor(
@@ -22,29 +22,46 @@ export class InventoryComponent implements OnInit {
     db: AngularFirestore,
   ) {
     this.inventoryRef = db.collection('characters').doc(this.data.id);
+    db.collection('characters').doc(this.data.id).valueChanges().subscribe((char: Character) => {
+      this.inventory = char.inventory;
+    });
   }
 
   ngOnInit() {
-    this.getCharacters();
+    console.log("Here");
   }
 
-  getCharacters(): void {
-    this.inventory$ = this.data.inventory;
+  addItem() {
+    if(this.newItem !== ''){
+      this.newItem.toLowerCase();
+      let tempArray = [];
+      for (let i = 0; i < this.inventory.length; i++) {
+        tempArray.push(this.inventory[i]);
+      }
+      tempArray.push(this.newItem);
+      console.log(this.newItem + ' added to ' + this.data.name + '\'s inventory.');
+      this.inventoryRef.update({
+        inventory: tempArray
+      });
+      this.newItem = '';
+    }
+    else {
+      alert("Please enter an item name.");
+    }
   }
 
-  // addItem(item) {
-  //   document.getElementById('newItem').value = '';
-  //   item = item.toLowerCase();
-  //   let tempArray = [];
-  //   for (let i = 0; i < this.data.inventory.length; i++) {
-  //     tempArray.push(this.data.inventory[i]);
-  //   }
-  //   tempArray.push(item);
-  //   console.log(item + ' added to ' + this.data.name + '\'s inventory.');
-  //   console.log(tempArray);
-  //   this.inventoryRef.update({
-  //     inventory: tempArray
-  //   });
-  //   this.data.inventory = tempArray;
-  // }
+  deleteItem(item) {
+    console.log(item);
+    let tempArray = [];
+    for (let i = 0; i < this.inventory.length; i++) {
+      tempArray.push(this.inventory[i]);
+    }
+    console.log(tempArray);
+    tempArray.splice(tempArray.indexOf(item), 1);
+    console.log(item + ' removed from ' + this.data.name + '\'s inventory.');
+    console.log(tempArray);
+    this.inventoryRef.update({
+      inventory: tempArray
+    });
+  }
 }

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CharactersService } from '../../app-services/characters.service';
-import { Character } from "../../character";
-import { ActivatedRoute, Router } from "@angular/router";
-import {CreateStoryComponent} from '../create-story/create-story.component';
-import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
-import {InventoryComponent} from '../inventory/inventory.component';
+import { Character } from '../../character';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { InventoryComponent } from '../inventory/inventory.component';
+import { AngularFirestore } from 'angularfire2/firestore';
 
 @Component({
   selector: 'app-character-detail',
@@ -18,15 +18,16 @@ export class CharacterDetailComponent implements OnInit {
     private charactersService: CharactersService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    public dialog: MatDialog
-  ) {}
+    public dialog: MatDialog,
+  ) {
+  }
 
   ngOnInit() {
     this.charactersService
       .getDetails(this.activatedRoute.snapshot.params['id'])
       .subscribe(character => {
         this.activeCharacter = character;
-        console.log("Character: " + character);
+        console.log('Character: ' + character);
       });
   }
 
@@ -34,7 +35,7 @@ export class CharacterDetailComponent implements OnInit {
     this.router.navigate(['../character-list']);
   }
 
-  openInventory(){
+  openInventory() {
     const dialogRef = this.dialog.open(InventoryComponent, {
       width: '40%',
       data: this.activeCharacter
@@ -44,5 +45,12 @@ export class CharacterDetailComponent implements OnInit {
       console.log('The dialog was closed');
       this.ngOnInit();
     });
+  }
+
+  killCharacter(characterId) {
+    if (confirm('Are you sure you want to kill this character?')){
+      this.charactersService.deleteCharacter(characterId);
+      this.back();
+    }
   }
 }
