@@ -5,11 +5,10 @@
       <p><span style="font-weight: bold">Gender:</span> {{activeCharacter.gender}}</p>
       <p><span style="font-weight: bold">Appearance:</span> {{activeCharacter.appearance}}</p>
       <p><span style="font-weight: bold">Bio:</span> {{activeCharacter.bio}}</p>
-      <!--<button mat-raised-button color="primary" (click)="openInventory()">Inventory</button>-->
-      <button mat-raised-button color="primary" [routerLink]="['/inventory', activeCharacter.id]" routerLinkActive="active" (click)="openInventory()">Inventory</button>
+      <button mat-raised-button color="primary" (click)="openInventory()">Inventory</button>
 
     </div>
-    <!--Delete Character-->
+    <button mat-raised-button (click)="killCharacter(activeCharacter.id)">Kill This Character</button>
   </mat-card-content>
 </mat-card>
 <br>

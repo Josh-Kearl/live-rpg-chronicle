@@ -4,6 +4,7 @@ import { Character } from '../../character';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { InventoryComponent } from '../inventory/inventory.component';
+import { AngularFirestore } from 'angularfire2/firestore';
 
 @Component({
   selector: 'app-character-detail',
@@ -17,7 +18,7 @@ export class CharacterDetailComponent implements OnInit {
     private charactersService: CharactersService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
   ) {
   }
 
@@ -44,5 +45,12 @@ export class CharacterDetailComponent implements OnInit {
       console.log('The dialog was closed');
       this.ngOnInit();
     });
+  }
+
+  killCharacter(characterId) {
+    if (confirm('Are you sure you want to kill this character?')){
+      this.charactersService.deleteCharacter(characterId);
+      this.back();
+    }
   }
 }

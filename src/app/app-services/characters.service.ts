@@ -4,8 +4,7 @@ import 'core-js/es7/reflect';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Character } from '../character';
 import { Story } from '../story';
-import { map } from "rxjs/operators";
-
+import { map } from 'rxjs/operators';
 
 
 @Injectable({
@@ -14,6 +13,7 @@ import { map } from "rxjs/operators";
 export class CharactersService {
   private characters: AngularFirestoreCollection<Character>;
   private stories: AngularFirestoreCollection<Story>;
+
   //activeCharacter = new BehaviorSubject<Character>(null);
 
   constructor(db: AngularFirestore) {
@@ -54,6 +54,11 @@ export class CharactersService {
     this.characters.doc(character.id).set(character).then(function () {
       console.log('character created!');
     });
+  }
+
+  deleteCharacter(character) {
+    this.characters.doc(character).delete();
+    console.log('Character deleted.');
   }
 
   getDetails(id: string): Observable<Character> {
