@@ -84,6 +84,14 @@ export class AuthService {
     return userRef.set(data, {merge: true});
   }
 
+  public setName(name){
+    this.afAuth.authState.subscribe(auth =>{
+      if(auth) {
+        name = auth;
+      }
+    });
+  }
+
   signOut(){
     this.afAuth.auth.signOut().then(() => {
       this.router.navigate(['/']);
