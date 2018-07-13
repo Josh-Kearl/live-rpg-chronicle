@@ -23,7 +23,6 @@ export class InventoryComponent implements OnInit {
   ) {
     this.inventoryRef = db.collection('characters').doc(this.data.id);
     db.collection('characters').doc(this.data.id).valueChanges().subscribe((char: Character) => {
-      console.log(char);
       this.inventory = char.inventory;
     });
   }
@@ -41,7 +40,6 @@ export class InventoryComponent implements OnInit {
       }
       tempArray.push(this.newItem);
       console.log(this.newItem + ' added to ' + this.data.name + '\'s inventory.');
-      console.log(tempArray);
       this.inventoryRef.update({
         inventory: tempArray
       });
@@ -58,12 +56,12 @@ export class InventoryComponent implements OnInit {
     for (let i = 0; i < this.inventory.length; i++) {
       tempArray.push(this.inventory[i]);
     }
-    let deletedItem = tempArray.indexOf(item);
-    tempArray.splice(deletedItem);
+    console.log(tempArray);
+    tempArray.splice(tempArray.indexOf(item), 1);
     console.log(item + ' removed from ' + this.data.name + '\'s inventory.');
+    console.log(tempArray);
     this.inventoryRef.update({
       inventory: tempArray
     });
-    this.data.inventory = tempArray;
   }
 }

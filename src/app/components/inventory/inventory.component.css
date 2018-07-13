@@ -37,4 +37,5 @@ li {
 
 .scrolling {
   overflow: scroll;
+  height: 200px;
 }
