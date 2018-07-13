@@ -2,15 +2,15 @@
   <div>
     <h2>{{data.name}}'s Inventory</h2>
       <ul class="scrolling">
-        <li *ngFor="let item of inventory$">{{item}}</li>
+        <li *ngFor="let item of inventory"><span class="removeBtn" (click)="deleteItem(item)">x</span>{{item}}</li>
       </ul>
   </div>
 </div>
 
 <mat-form-field appearance="legacy" class="short">
-  <input id="newItem" #newItem matInput maxlength="35" placeholder="add item">
+  <input matInput maxlength="35" placeholder="add item" [(ngModel)]="newItem">
 </mat-form-field>
-<button class="addBtn" (click)="addItem(newItem.value)">+</button>
+<button class="addBtn" (click)="addItem()">+</button>
 <br>
 <button mat-raised-button class="secondaryBtn" color="warn" [mat-dialog-close]="true">Done</button>
 
