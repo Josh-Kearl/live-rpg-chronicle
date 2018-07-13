@@ -1,3 +1,10 @@
+ul {
+  list-style-type: none;
+}
+
+li {
+  user-select: none;
+}
 .addBtn {
   max-width: 30px;
   margin: 5px 0 5px 0;
@@ -7,6 +14,25 @@
   horiz-align: center;
   color: white;
   font-size: 14pt;
+}
+
+.removeBtn {
+  max-width: 15px;
+  margin: 0 10px 2px 0;
+  padding: 0 2px 0 2px;
+  text-align: center;
+  background-color: rgba(255, 0, 0, 0.2);
+  vertical-align: middle;
+  color: transparent;
+  font-size: 8pt;
+  border-radius: 5px;
+  border: transparent;
+  user-select: none;
+}
+
+.removeBtn:hover {
+  background-color: red;
+  color: white;
 }
 
 .scrolling {
