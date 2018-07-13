@@ -32,19 +32,19 @@ export class InventoryComponent implements OnInit {
     this.inventory$ = this.data.inventory;
   }
 
-  addItem(item) {
-    document.getElementById('newItem').value = '';
-    item = item.toLowerCase();
-    let tempArray = [];
-    for (let i = 0; i < this.data.inventory.length; i++) {
-      tempArray.push(this.data.inventory[i]);
-    }
-    tempArray.push(item);
-    console.log(item + ' added to ' + this.data.name + '\'s inventory.');
-    console.log(tempArray);
-    this.inventoryRef.update({
-      inventory: tempArray
-    });
-    this.data.inventory = tempArray;
-  }
+  // addItem(item) {
+  //   document.getElementById('newItem').value = '';
+  //   item = item.toLowerCase();
+  //   let tempArray = [];
+  //   for (let i = 0; i < this.data.inventory.length; i++) {
+  //     tempArray.push(this.data.inventory[i]);
+  //   }
+  //   tempArray.push(item);
+  //   console.log(item + ' added to ' + this.data.name + '\'s inventory.');
+  //   console.log(tempArray);
+  //   this.inventoryRef.update({
+  //     inventory: tempArray
+  //   });
+  //   this.data.inventory = tempArray;
+  // }
 }

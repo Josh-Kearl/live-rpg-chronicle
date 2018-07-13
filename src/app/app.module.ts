@@ -13,6 +13,10 @@ import { CreateCharacterComponent } from './components/create-character/create-c
 import { CreateStoryComponent } from './components/create-story/create-story.component';
 import { InventoryComponent } from './components/inventory/inventory.component';
 import { FriendsComponent } from './components/friends/friends.component';
+import { MessengerComponent } from './components/story/messenger/messenger.component';
+import { SideNavComponent } from './components/story/side-nav/side-nav.component';
+
+
 import { AppRoutingModule } from './app-routing.module';
 import { environment } from '../environments/environment';
 import { AngularFireModule } from "angularfire2";
@@ -25,10 +29,14 @@ import { FormsModule } from "@angular/forms";
 import { LoginComponent } from "./components/login/login.component";
 import { AngularFirestoreModule } from "angularfire2/firestore";
 import { HttpModule } from '@angular/http';
-import {HttpClientModule} from '@angular/common/http';
-import { SideNavComponent } from './components/story/side-nav/side-nav.component';
+import { HttpClientModule } from '@angular/common/http';
+
+
+
+
 
 const appRoutes: Routes = [
+  {path: '', redirectTo: 'login', pathMatch: 'full'},
   {path: 'dashboard', component: DashboardComponent},
   {path: 'character/:id', component: CharacterDetailComponent},
   {path: 'character-list', component: CharacterListComponent, data: {title: 'Characters'}},
@@ -55,6 +63,8 @@ const appRoutes: Routes = [
     FriendsComponent,
     LoginComponent,
     SideNavComponent,
+    MessengerComponent,
+
     
   ],
   imports: [
@@ -69,7 +79,6 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     FormsModule,
     CoreModule,
-    
     HttpModule,
     HttpClientModule,
   ],
