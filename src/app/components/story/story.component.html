@@ -1,1 +1,17 @@
-<app-messenger></app-messenger>
+<div class="details-container">
+  <div>
+    <h2>{{activeStory.title}}</h2>
+    <ul class="scrolling">
+      <li *ngFor="let message of plot">{{message}}</li>
+    </ul>
+  </div>
+</div>
+<div class="messageBox">
+  <mat-form-field class="messageField" appearance="legacy">
+    <textarea matInput [(ngModel)]="newMessage"></textarea>
+  </mat-form-field>
+  <button class="addBtn" (click)="writeMessage(narrator)">+</button>
+  <button class="addBtn2" (click)="writeMessage(player)">+</button>
+</div>
+
+

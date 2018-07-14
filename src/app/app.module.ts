@@ -26,27 +26,12 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import { MaterialModule } from './material.module';
-import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from './core/core.module';
-
-const appRoutes: Routes = [
-  {path: '', redirectTo: 'login', pathMatch: 'full'},
-  {path: 'dashboard', component: DashboardComponent},
-  {path: 'character/:id', component: CharacterDetailComponent},
-  {path: 'character-list', component: CharacterListComponent, data: {title: 'Characters'}},
-  {path: 'create-character', component: CreateCharacterComponent},
-  {path: 'inventory/:id', component: InventoryComponent, data: {title: 'Characters'}},
-  {path: 'create-story', component: CreateStoryComponent},
-  {path: 'friends', component: FriendsComponent},
-  {path: 'story', component: StoryComponent},
-  {path: 'story-list', component: StoryListComponent},
-  {path: 'login', component: LoginComponent}
-];
+import { Story } from './story';
 
 @NgModule({
   declarations: [
@@ -64,7 +49,6 @@ const appRoutes: Routes = [
     SideNavComponent,
     MessengerComponent,
 
-    
 
   ],
   imports: [
@@ -76,17 +60,12 @@ const appRoutes: Routes = [
     MaterialModule,
     FormsModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot(appRoutes),
     FormsModule,
     CoreModule,
-
-    HttpModule,
     HttpClientModule,
   ],
   providers: [
-
-    // {provide: MAT_DIALOG_DATA, useValue: {}},
-    // {provide: MatDialogRef, useValue: {}}
+    StoryComponent
   ],
   bootstrap: [AppComponent]
 })

@@ -9,4 +9,4 @@ export const randomPrompts = [
   "You find yourself creeping through the cold tunnels of a mountain cavern. Your torch flickers in the darkness. What do you do?",
   "You find yourself on a creaking ship in the middle of the ocean. Thunder rumbles from dark clouds forming in the distance. What do you do?",
   "You find yourself walking along the shore of a crystal lake. A waterfall roars from the nearby cliffs. What do you do?"
-]
+];

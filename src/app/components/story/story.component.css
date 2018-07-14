@@ -1,0 +1,46 @@
+h2{
+  text-align: center;
+}
+
+li{
+  padding: 5px;
+  margin: 2px;
+}
+
+.scrolling {
+  overflow: scroll;
+  height: 50%;
+}
+
+.addBtn{
+  background-color: tan;
+  font-size: 14pt;
+  border-radius: 10px;
+  margin: 3px;
+  vertical-align: center;
+  max-height: 50px;
+  max-width: 50px;
+}
+
+.addBtn2{
+  color: white;
+  background-color: darkolivegreen;
+  font-size: 14pt;
+  border-radius: 10px;
+  margin: 3px;
+  vertical-align: center;
+  max-height: 50px;
+  max-width: 50px;
+}
+
+.messageField{
+  width: 50%;
+}
+
+.messageBox{
+  position: absolute;
+  bottom: 35px;
+  justify-content: center;
+  display: flex;
+  width: 100%;
+}
