@@ -49,8 +49,8 @@ export class CharacterDetailComponent implements OnInit {
 
   killCharacter(characterId) {
     if (confirm('Are you sure you want to kill this character?')){
-      this.charactersService.deleteCharacter(characterId);
       this.back();
+      this.charactersService.deleteCharacter(characterId);
     }
   }
 }

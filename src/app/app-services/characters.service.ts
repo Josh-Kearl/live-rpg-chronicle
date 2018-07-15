@@ -58,7 +58,7 @@ export class CharactersService {
 
   deleteCharacter(character) {
     this.characters.doc(character).delete();
-    console.log('Character deleted.');
+    console.log('Character killed.');
   }
 
   getDetails(id: string): Observable<Character> {

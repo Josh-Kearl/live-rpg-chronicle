@@ -15,6 +15,7 @@ import { InventoryComponent } from './components/inventory/inventory.component';
 import { FriendsComponent } from './components/friends/friends.component';
 import { MessengerComponent } from './components/story/messenger/messenger.component';
 import { SideNavComponent } from './components/story/side-nav/side-nav.component';
+import { LoginComponent } from './components/login/login.component';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -26,7 +27,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { MaterialModule } from './material.module';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { LoginComponent } from './components/login/login.component';
+
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';

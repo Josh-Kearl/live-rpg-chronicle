@@ -49,7 +49,6 @@ export class InventoryComponent implements OnInit {
       alert("Please enter an item name.");
     }
   }
-
   deleteItem(item) {
     console.log(item);
     let tempArray = [];
