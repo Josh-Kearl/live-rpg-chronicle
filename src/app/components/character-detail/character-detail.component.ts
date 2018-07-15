@@ -27,7 +27,6 @@ export class CharacterDetailComponent implements OnInit {
       .getDetails(this.activatedRoute.snapshot.params['id'])
       .subscribe(character => {
         this.activeCharacter = character;
-        console.log('Character: ' + character);
       });
   }
 

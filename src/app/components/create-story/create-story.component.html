@@ -1,29 +1,29 @@
 <form class="newStoryForm">
   <mat-form-field appearance="legacy" class="short">
     <mat-label>Title</mat-label>
-    <input #storyTitle matInput maxlength="50" placeholder="Quest for the Eternity Key" required>
+    <input name="title" matInput maxlength="50" placeholder="Quest for the Eternity Key" required [(ngModel)]="storyTitle">
   </mat-form-field>
 
-  <mat-radio-group>
-    <mat-radio-button value="isNarrator" (change)="togglePlayerStatus()" checked>Narrator</mat-radio-button><br>
-    <mat-radio-button value="isPlayer" (change)="togglePlayerStatus()">Player</mat-radio-button>
-  </mat-radio-group>
+  <!--<mat-radio-group>-->
+    <!--<mat-radio-button value="isNarrator" (change)="togglePlayerStatus()" checked>Narrator</mat-radio-button><br>-->
+    <!--<mat-radio-button value="isPlayer" (change)="togglePlayerStatus()">Player</mat-radio-button>-->
+  <!--</mat-radio-group>-->
 
-  <mat-form-field class="short" required>
-    <mat-select #playerChoice placeholder="Character">
-      <mat-option #player *ngFor="let character of characters$ | async" value="{{character.name}}">{{character.name}}</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <button mat-raised-button class="secondaryBtn" color="accent" (click)="openCreateMenu()">New Character</button>
-  <app-create-character *ngIf="!hideCreate" ></app-create-character>
+  <!--<mat-form-field class="short" required>-->
+    <!--<mat-select #playerChoice placeholder="Character">-->
+      <!--<mat-option #player *ngFor="let character of characters$ | async" value="{{character.name}}">{{character.name}}</mat-option>-->
+    <!--</mat-select>-->
+  <!--</mat-form-field>-->
+  <!--<button mat-raised-button class="secondaryBtn" color="accent" (click)="openCreateMenu()">New Character</button>-->
+  <!--<app-create-character *ngIf="!hideCreate" ></app-create-character>-->
 
-  <mat-form-field appearance="legacy" *ngIf="!isPlayer">
+  <mat-form-field appearance="legacy">
     <mat-label>Opening Prompt</mat-label>
-    <textarea id="prompt" #prompt matInput placeholder="You find yourself stranded on a beach of black sand..." required></textarea>
+    <textarea id="prompt" name="prompt" matInput placeholder="You find yourself stranded on a beach of black sand..." required [(ngModel)]="firstMessage"></textarea>
     <mat-hint>This will be the opening text your player sees.</mat-hint>
   </mat-form-field>
-  <button *ngIf="!isPlayer" mat-raised-button class="secondaryBtn" color="accent" (click)="randomPrompt()">Random Prompt</button>
+  <button mat-raised-button class="randomBtn" color="accent" (click)="randomPrompt()">Random Prompt</button>
 
-  <button mat-raised-button class="primaryBtn" color="primary" (click)="makeStory(storyTitle.value, player.value, prompt.value)" [mat-dialog-close]="true">Create</button>
+  <button mat-raised-button class="primaryBtn" color="primary" (click)="makeStory()">Create</button>
   <button mat-raised-button class="secondaryBtn" color="warn" [mat-dialog-close]="true">Cancel</button>
 </form>

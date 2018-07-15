@@ -3,7 +3,6 @@ import {Observable} from 'rxjs';
 import {Story} from '../../story';
 import {CharactersService} from '../../app-services/characters.service';
 import {MatDialog} from '@angular/material';
-import {CreateCharacterComponent} from '../create-character/create-character.component';
 import {CreateStoryComponent} from '../create-story/create-story.component';
 
 @Component({

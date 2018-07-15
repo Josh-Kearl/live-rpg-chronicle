@@ -29,15 +29,15 @@ export class CharactersService {
     return this.stories.valueChanges();
   }
 
-  addStory(title, character, prompt) {
+  addStory(title, prompt) {
     const story = {
       id: this.makeId(),
       title: title,
-      character: Character,
+      // character: Character,
       plot: [prompt]
     };
     this.stories.doc(story.id).set(story).then(function () {
-      console.log('story created!');
+      console.log('Story created!');
     });
   }
 
@@ -64,6 +64,11 @@ export class CharactersService {
   getDetails(id: string): Observable<Character> {
     return this.getCharactersFB().pipe(map((characters: Character[]) => {
       return characters.find((character: Character) => character.id == id);
+    }));
+  }
+  getStory(id: string): Observable<Story> {
+    return this.getStories().pipe(map((stories: Story[]) => {
+      return stories.find((story: Story) => story.id == id);
     }));
   }
 

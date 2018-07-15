@@ -3,9 +3,9 @@ import { Character } from "./character";
 export class Story {
 
   constructor(
+    public id: string,
     public title: string,
-    public character: Character,
+    // public character: Character,
     public plot: Array<string>,
-    public created: Date,
   ) {}
 }
