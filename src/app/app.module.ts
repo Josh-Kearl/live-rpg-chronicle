@@ -30,7 +30,9 @@ import { FormsModule } from '@angular/forms';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from './core/core.module';
+
 import { Story } from './story';
+
 
 
 @NgModule({
@@ -65,6 +67,7 @@ import { Story } from './story';
   ],
   providers: [
     StoryComponent
+
   ],
   bootstrap: [AppComponent]
 })
