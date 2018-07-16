@@ -1,5 +1,5 @@
 export const environment = {
-  production: false,
+  production: true,
   firebase: {
     apiKey: "AIzaSyC-vWLWvD6r3dXZwXSRo-F-VuAjL5wLKOc",
     authDomain: "rpg-chronicle.firebaseapp.com",
