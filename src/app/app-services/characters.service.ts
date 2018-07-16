@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import 'core-js/es7/reflect';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Character } from '../character';
@@ -13,6 +13,7 @@ import { map } from 'rxjs/operators';
 export class CharactersService {
   private characters: AngularFirestoreCollection<Character>;
   private stories: AngularFirestoreCollection<Story>;
+  activeStory = new BehaviorSubject<Story>(null);
 
   //activeCharacter = new BehaviorSubject<Character>(null);
 
@@ -66,7 +67,7 @@ export class CharactersService {
       return characters.find((character: Character) => character.id == id);
     }));
   }
-  getStory(id: string): Observable<Story> {
+  getStoryDetails(id: string): Observable<Story> {
     return this.getStories().pipe(map((stories: Story[]) => {
       return stories.find((story: Story) => story.id == id);
     }));

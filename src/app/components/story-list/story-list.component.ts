@@ -36,4 +36,9 @@ export class StoryListComponent implements OnInit {
     });
   }
 
+  setActiveStory(activeStory: Story){
+    this.characterService.activeStory.next(activeStory);
+  }
+
+
 }
