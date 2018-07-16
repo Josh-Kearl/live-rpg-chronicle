@@ -42,15 +42,28 @@ export class CharactersService {
   }
 
   addCharacter(name, gender, appearance, bio, item) {
-    const character = {
-      id: this.makeId(),
-      name: name,
-      gold: 0,
-      gender: gender,
-      appearance: appearance,
-      bio: bio,
-      inventory: [item]
-    };
+    let character;
+    if(item === '') {
+      character = {
+        id: this.makeId(),
+        name: name,
+        gold: 0,
+        gender: gender,
+        appearance: appearance,
+        bio: bio,
+        inventory: []
+      };
+    } else {
+      character = {
+        id: this.makeId(),
+        name: name,
+        gold: 0,
+        gender: gender,
+        appearance: appearance,
+        bio: bio,
+        inventory: [item]
+      };
+    }
     this.characters.doc(character.id).set(character).then(function () {
       console.log('character created!');
     });

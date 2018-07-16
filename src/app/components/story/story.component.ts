@@ -20,7 +20,7 @@ export class StoryComponent implements OnInit {
   )
   {
     this.storyRef = db.collection('stories').doc(this.activeStory.id);
-    db.collection('characters').doc(this.activeStory.id).valueChanges().subscribe((story: Story) => {
+    db.collection('stories').doc(this.activeStory.id).valueChanges().subscribe((story: Story) => {
       this.plot = story.plot;
     });
   }
