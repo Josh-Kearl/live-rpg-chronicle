@@ -1,7 +1,16 @@
-.details-container {
-
+h2 {
+  margin-top: 0;
 }
 
 p {
   width: 60%;
+}
+
+button {
+  margin-bottom: 10px;
+}
+
+mat-card {
+  background-color: lightgray;
+  margin: 8px;
 }

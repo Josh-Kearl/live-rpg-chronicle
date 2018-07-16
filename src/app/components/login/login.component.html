@@ -1,3 +1,4 @@
+<mat-card>
 <div *ngIf="auth.user | async; then authenticated else guest">
 
 </div>
@@ -41,9 +42,11 @@
       <input matInput placeholder="Input">
     </mat-form-field>
     <button mat-button>Create Profile</button>
-    
+
     <button mat-button (click)="console.log('foo')">Dashboard</button>
   </mat-card-content>
 </mat-card>
 
 <br><br> -->
+
+</mat-card>

@@ -3,3 +3,7 @@
   width: 20%;
 }
 
+mat-card {
+  background-color: lightgray;
+  margin: 8px;
+}
