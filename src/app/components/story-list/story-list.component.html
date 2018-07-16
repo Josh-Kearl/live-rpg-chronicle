@@ -2,7 +2,8 @@
   <h2>Stories</h2>
   <mat-progress-spinner mode="indeterminate" *ngIf="!(stories$ | async)"></mat-progress-spinner>
   <mat-list *ngFor="let story of stories$ | async">
-    <button class="primaryBtn" mat-raised-button color="primary" [routerLink]="['/story', story.id]" routerLinkActive="active">{{ story?.title }}</button>
+    <button class="primaryBtn" mat-raised-button color="primary" [routerLink]="['/story', story.id]" routerLinkActive="active" 
+    (click)="setActiveStory(story)">{{ story?.title }}</button>
   </mat-list>
   <button style="margin-top: 20px;" class="secondaryBtn" mat-raised-button color="secondary" (click)="openCreateMenu()">Create New</button>
 </mat-card>
