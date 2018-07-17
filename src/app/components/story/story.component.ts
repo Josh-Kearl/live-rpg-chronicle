@@ -3,6 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/fires
 import { Story } from '../../story';
 import { CharactersService } from '../../app-services/characters.service';
 import { MessagingService } from '../../app-services/messaging.service';
+import { Messenger } from '../../messenger';
 
 @Component({
   selector: 'story',
@@ -12,11 +13,11 @@ import { MessagingService } from '../../app-services/messaging.service';
 export class StoryComponent implements OnInit {
   private stories: AngularFirestoreCollection<Story>;
   activeStory: Story;
-  plot: object[] = [];
+  plot = [];
   storyRef: any;
   newMessage: string;
   messageRef: any;
-  messages: string[] = [];
+  messages = [];
 
   constructor(
     private messagingService: MessagingService,
@@ -28,17 +29,20 @@ export class StoryComponent implements OnInit {
       this.activeStory =  activeStory;
     });
     this.storyRef = db.collection('stories').doc(this.activeStory.id);
-    this.messageRef = db.collection('messages').doc(this.activeStory.id);
+    // this.messageRef = db.collection('messages').doc(this.activeStory.id);
     db.collection('stories').doc(this.activeStory.id).valueChanges().subscribe((story: Story) => {
        this.plot = story.plot;
      });
+    // db.collection('messages').doc(this.activeStory.id).valueChanges().subscribe((message: Messenger) => {
+    //   this.messages = message.plot;
+    // });
   }
 
   ngOnInit() {
 
   }
 
-  writeMessage(color) {
+  writeStory(color) {
     let chatBite = {};
     if(this.newMessage !== ''){
       let tempArray = [];
@@ -55,7 +59,24 @@ export class StoryComponent implements OnInit {
     }
   }
 
-  
+  // writeMessage(color) {
+  //   let chatBite = {};
+  //   if(this.newMessage !== ''){
+  //     let tempArray = [];
+  //     for (let i = 0; i < this.plot.length; i++) {
+  //       chatBite = {message: this.plot[i].message, color: this.plot[i].color};
+  //       tempArray.push(chatBite);
+  //     }
+  //     tempArray.push({message: this.newMessage, color: color});
+  //     console.log(this.newMessage + ' added to ' + this.activeStory.title);
+  //     this.messageRef.update({
+  //       plot: tempArray
+  //     });
+  //     this.newMessage = '';
+  //   }
+  // }
+
+
   // writeMessage(role) {
   //   if(this.newMessage !== ''){
   //     let tempArray = [];
@@ -71,20 +92,20 @@ export class StoryComponent implements OnInit {
   //   }
   // }
 
-  writeStory(role) {
-    if(this.newMessage !== ''){
-      let tempArray = [];
-      for (let i = 0; i < this.plot.length; i++) {
-        tempArray.push(this.plot[i]);
-      }
-      tempArray.push(this.newMessage);
-      console.log(this.newMessage + ' added to ' + this.activeStory.title);
-      this.storyRef.update({
-        plot: tempArray
-      });
-      this.newMessage = '';
-    }
-  }
+  // writeStory(role) {
+  //   if(this.newMessage !== ''){
+  //     let tempArray = [];
+  //     for (let i = 0; i < this.plot.length; i++) {
+  //       tempArray.push(this.plot[i]);
+  //     }
+  //     tempArray.push(this.newMessage);
+  //     console.log(this.newMessage + ' added to ' + this.activeStory.title);
+  //     this.storyRef.update({
+  //       plot: tempArray
+  //     });
+  //     this.newMessage = '';
+  //   }
+  // }
 
 }
 

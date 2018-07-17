@@ -5,6 +5,9 @@ import { SideNavComponent } from "./components/story/side-nav/side-nav.component
 import { OuterSubscriber } from "rxjs/internal/OuterSubscriber";
 import { AngularFireDatabase, AngularFireList,  } from "angularfire2/database"; 
 import { AngularFireAuth } from 'angularfire2/auth';
+import { AuthService } from "./core/auth.service";
+import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 
 
@@ -24,7 +27,12 @@ export class AppComponent implements AfterViewInit {
   
   title = 'RPG Chronicle';
   character: Observable<any[]>;
-  constructor(private db: AngularFirestore) {
+  constructor(
+    private db: AngularFirestore, 
+    public auth: AuthService,
+    private router: Router,
+    private _location: Location,
+  ) {
 
     this.character = db.collection('characters').valueChanges();
     console.log(this.character);
@@ -38,4 +46,8 @@ export class AppComponent implements AfterViewInit {
   //   this.snavToggle.emit(true);
   // }
   
+  back() {
+    this._location.back();
+  }
+
 }

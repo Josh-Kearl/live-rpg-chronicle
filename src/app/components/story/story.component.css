@@ -14,14 +14,14 @@ h2{
 }
 
 ul{
-  align-items: center;
-  width: 70%;
-  left: 150px;
+  /*align-items: center;*/
+  /*width: 70%;*/
+  /*left: 150px;*/
   position: relative;
 }
 li{
   padding: 7px;
-  margin: 10px;
+  margin: 5px;
   list-style-type: none;
   font-family: sans-serif;
   font-weight: lighter;
@@ -29,18 +29,19 @@ li{
 }
 
 .player, .addBtn{
-  background-color: lightblue;
+  background-color: #3e3b6c;
+  color: #fff;
 }
 
 .narrator, .addBtn2{
   /*background-color: #8E703E;*/
-  background-color: #B8986D;
-  /*color: white;*/
+  background-color: #f9a013;
+  color: #fff;
 }
 
 .scrolling {
   overflow: scroll;
-  height: 50%;
+  height: 400px;
 }
 
 .addBtn, .addBtn2{

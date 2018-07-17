@@ -1,3 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+html {
+    background: #dadfea url(https://cdnb.artstation.com/p/assets/images/images/004/236/235/large/kim-youngho-p3-161115-dundeon-14-1-final-web.jpg?1481617015)
+}
+

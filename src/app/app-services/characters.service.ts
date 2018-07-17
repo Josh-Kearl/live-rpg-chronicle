@@ -5,6 +5,7 @@ import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/fires
 import { Character } from '../character';
 import { Story } from '../story';
 import { map } from 'rxjs/operators';
+import { Messenger } from '../messenger'
 
 
 @Injectable({
@@ -13,6 +14,8 @@ import { map } from 'rxjs/operators';
 export class CharactersService {
   private characters: AngularFirestoreCollection<Character>;
   private stories: AngularFirestoreCollection<Story>;
+  private messenger: AngularFirestoreCollection<Messenger>;
+
   activeStory = new BehaviorSubject<Story>(null);
 
   //activeCharacter = new BehaviorSubject<Character>(null);
@@ -20,6 +23,7 @@ export class CharactersService {
   constructor(db: AngularFirestore) {
     this.characters = db.collection<Character>('/characters');
     this.stories = db.collection<Story>('/stories');
+    this.messenger = db.collection<Messenger>('/messages');
   }
 
   getCharactersFB(): Observable<Character[]> {
@@ -28,6 +32,9 @@ export class CharactersService {
 
   getStories(): Observable<Story[]> {
     return this.stories.valueChanges();
+  }
+  getMessages(): Observable<Messenger[]>{
+    return this.messenger.valueChanges();
   }
 
   addStory(title, prompt) {
@@ -39,6 +46,9 @@ export class CharactersService {
     };
     this.stories.doc(story.id).set(story).then(function () {
       console.log('Story created!');
+    });
+    this.messenger.doc(story.id).set(story).then(function() {
+      console.log('Messages created!');
     });
   }
 
@@ -73,6 +83,12 @@ export class CharactersService {
   deleteCharacter(character) {
     this.characters.doc(character).delete();
     console.log('Character killed.');
+  }
+
+  deleteStory(story) {
+    this.stories.doc(story).delete();
+    this.messenger.doc(story).delete();
+    console.log('The End.');
   }
 
   getDetails(id: string): Observable<Character> {

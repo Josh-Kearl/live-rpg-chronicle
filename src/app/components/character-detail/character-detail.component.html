@@ -8,8 +8,11 @@
       <button mat-raised-button color="primary" (click)="openInventory()">Inventory</button>
 
     </div>
-    <button mat-raised-button (click)="killCharacter(activeCharacter.id)">Kill This Character</button>
+    <div class="buttons">
+      <button mat-raised-button color="warn" (click)="back()">Back</button>
+      <!-- <button mat-raised-button (click)="killCharacter(activeCharacter.id)">Kill This Character</button> -->
+    </div>
   </mat-card-content>
 </mat-card>
 <br>
-<button mat-raised-button color="warn" (click)="back()">Back</button>
+

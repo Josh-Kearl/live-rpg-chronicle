@@ -22,7 +22,7 @@
     <textarea id="prompt" name="prompt" matInput placeholder="You find yourself stranded on a beach of black sand..." required [(ngModel)]="firstMessage"></textarea>
     <mat-hint>This will be the opening text your player sees.</mat-hint>
   </mat-form-field>
-  <button mat-raised-button class="randomBtn" color="accent" (click)="randomPrompt()">Random Prompt</button>
+  <button mat-raised-button class="randomBtn" (click)="randomPrompt()">Random Prompt</button>
 
   <button mat-raised-button class="primaryBtn" color="primary" (click)="makeStory()">Create</button>
   <button mat-raised-button class="secondaryBtn" color="warn" [mat-dialog-close]="true">Cancel</button>
