@@ -36,7 +36,6 @@ export class CharacterDetailComponent implements OnInit {
 
   openInventory() {
     const dialogRef = this.dialog.open(InventoryComponent, {
-      width: '40%',
       data: this.activeCharacter
     });
 
