@@ -15,5 +15,5 @@ export interface User {
     displayName?: string; 
     userTypeId?: string;
 
-    //roles: Roles;
+    roles: Roles;
   }

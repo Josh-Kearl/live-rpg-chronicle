@@ -11,6 +11,7 @@ import { CreateCharacterComponent } from './components/create-character/create-c
 import { InventoryComponent } from './components/inventory/inventory.component';
 import { LoginComponent } from './components/login/login.component';
 import { CreateStoryComponent } from './components/create-story/create-story.component';
+import { AuthGuard } from './core/auth-guard.service'
 
 const appRoutes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},

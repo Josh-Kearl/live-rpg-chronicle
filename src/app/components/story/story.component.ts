@@ -15,8 +15,11 @@ export class StoryComponent implements OnInit {
   plot: string[] = [];
   storyRef: any;
   newMessage: string;
+  messageRef: any;
+  messages: string[] = [];
 
   constructor(
+    private messagingService: MessagingService,
     private characterService: CharactersService,
     db: AngularFirestore,
   )
@@ -25,6 +28,7 @@ export class StoryComponent implements OnInit {
       this.activeStory =  activeStory;
     })
     this.storyRef = db.collection('stories').doc(this.activeStory.id);
+    this.messageRef = db.collection('messages').doc(this.activeStory.id);
     db.collection('stories').doc(this.activeStory.id).valueChanges().subscribe((story: Story) => {
        this.plot = story.plot;
      });
@@ -34,7 +38,7 @@ export class StoryComponent implements OnInit {
 
   }
 
-  writeMessage() {
+  writeStory(role) {
     if(this.newMessage !== ''){
       let tempArray = [];
       for (let i = 0; i < this.plot.length; i++) {
@@ -47,9 +51,25 @@ export class StoryComponent implements OnInit {
       });
       this.newMessage = '';
     }
-    else {
+  }
 
+  
+  writeMessage(role) {
+    if(this.newMessage !== ''){
+      let tempArray = [];
+      for (let i = 0; i < this.plot.length; i++) {
+        tempArray.push(this.messages[i]);
+      }
+      tempArray.push(this.newMessage);
+      console.log(this.newMessage + ' added to ' + this.activeStory.title);
+      this.messageRef.update({
+        messages: tempArray
+      });
+      this.newMessage = '';
     }
   }
+
+
+
 }
 

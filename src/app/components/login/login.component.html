@@ -8,12 +8,19 @@
   <h3>Welcome, Guest</h3>
   <p>Login to get started...</p>
 
-    <button (click)="auth.facebookLogin()">
-        <i class="fa fa-facebook-square"></i>Connect Facebook
-    </button>
-    <button (click)="auth.googleLogin()">
-       <i class="fa fa-google"></i>Connect Google
-    </button>
+
+    <div class="primaryBtnBox">
+      <button class="primaryBtn" color="primary" mat-raised-button (click)="auth.facebookLogin()">
+        <i class="fa fa-facebook-square"></i>
+        <span>Connect Facebook</span>
+      </button>
+    </div>
+    <div class="secondaryBtnBox">
+      <button class="primaryBtn" color="primary" mat-raised-button (click)="auth.googleLogin()">
+        <i class="fa fa-google"></i>
+        <span>Connect Google</span>
+      </button>
+    </div>
     <!-- <button (click)="auth.emailLogin()">
         <i class="fas fa-envelope"></i>Connect Email
     </button> -->
@@ -24,8 +31,7 @@
   <div *ngIf="auth.user | async as user">
     <h3>Welcome, {{user.displayName}}</h3>
     <img [src]="user.photoURL">
-    <p>UID: {{user.uid}}</p>
-    <button (click)="auth.signOut()">Logout</button>
+    <button class="primaryBtn" color="primary" mat-raised-button (click)="auth.signOut()">Logout</button>
   </div>
 
 

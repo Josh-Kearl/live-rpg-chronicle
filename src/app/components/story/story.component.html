@@ -8,10 +8,11 @@
 </div>
 <div class="messageBox">
   <mat-form-field class="messageField" appearance="legacy">
+    <textarea matInput [(ngModel)]="newMessage" (keyup.enter)="writeStory()"></textarea>
     <textarea matInput [(ngModel)]="newMessage" (keyup.enter)="writeMessage()"></textarea>
   </mat-form-field>
   <button class="addBtn" (click)="writeMessage()">+</button>
-  <!-- <button class="addBtn2" (click)="writeMessage(player)">+</button> -->
+  <button class="addBtn2" (click)="writeMessage(player)">+</button>
 </div>
 
 

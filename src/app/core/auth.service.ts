@@ -27,8 +27,7 @@ export class AuthService {
     private router: Router,
     // private notify: NotifyService, 
   ){
-    this.user = afAuth.authState;
-    this.user.pipe(switchMap(user => {
+    this.user = afAuth.authState.pipe(switchMap(user => {
       if (user) {
         return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
       } else {
@@ -76,9 +75,10 @@ export class AuthService {
       email: user.email,
       displayName: user.displayName,
       photoURL: user.photoURL,
-      // roles: {
-      //   narrator: false
-      // }
+      roles: {
+         narrator: false,
+         player: true
+      }
     }
 
     return userRef.set(data, {merge: true});
@@ -100,6 +100,8 @@ export class AuthService {
 
 
 
+
+
   //Abilities and Role Authorization
 // canRead(user: User): boolean {
 //   const allowed = ['admin', 'narrator', 'player']
@@ -117,15 +119,26 @@ export class AuthService {
 // }
   
 
-// private checkAuthorization(user: User, allowedRoles: string[]): boolean{
-//   if (!user) return false
-//   for (const role of allowedRoles){
-//     if ( user.roles[role]){
-//       return true;
-//     }
-//   }
-// return false;
-// }
+public setRole(user: User, roles: string[]):boolean {
+  if(!user) return false
+  for(const role of roles){
+    if (user.roles !== user.roles.narrator){
+       return true;
+    } else if (user.roles === user.roles.player){
+      return false;
+    }
+  }
+}
+
+private checkAuthorization(user: User, allowedRoles: string[]): boolean{
+  if (!user) return false
+  for (const role of allowedRoles){
+    if ( user.roles[role]){
+      return true;
+    }
+  }
+return false;
+}
 
 
 
