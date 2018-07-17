@@ -2450,6 +2450,7 @@ var CharactersService = /** @class */ (function () {
         this.activeStory = new rxjs__WEBPACK_IMPORTED_MODULE_1__["BehaviorSubject"](null);
         this.characters = db.collection('/characters');
         this.stories = db.collection('/stories');
+        this.messenger = db.collection('/messages');
     }
     CharactersService.prototype.getCharactersFB = function () {
         return this.characters.valueChanges();
@@ -2457,15 +2458,21 @@ var CharactersService = /** @class */ (function () {
     CharactersService.prototype.getStories = function () {
         return this.stories.valueChanges();
     };
+    CharactersService.prototype.getMessages = function () {
+        return this.messenger.valueChanges();
+    };
     CharactersService.prototype.addStory = function (title, prompt) {
         var story = {
             id: this.makeId(),
             title: title,
             // character: Character,
-            plot: [prompt]
+            plot: [{ message: prompt, color: 'narrator' }]
         };
         this.stories.doc(story.id).set(story).then(function () {
             console.log('Story created!');
+        });
+        this.messenger.doc(story.id).set(story).then(function () {
+            console.log('Messages created!');
         });
     };
     CharactersService.prototype.addCharacter = function (name, gender, appearance, bio, item) {
@@ -2499,6 +2506,11 @@ var CharactersService = /** @class */ (function () {
     CharactersService.prototype.deleteCharacter = function (character) {
         this.characters.doc(character).delete();
         console.log('Character killed.');
+    };
+    CharactersService.prototype.deleteStory = function (story) {
+        this.stories.doc(story).delete();
+        this.messenger.doc(story).delete();
+        console.log('The End.');
     };
     CharactersService.prototype.getDetails = function (id) {
         return this.getCharactersFB().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (characters) {
@@ -2609,7 +2621,7 @@ var MessagingService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n\nbody, html{\n  margin: 0;\n  padding: 0;\n  width: 100%;\n  height: 100%;\n}\n\nbody{\n  display:flex;\n  align-items: center;\n  justify-content: center;\n  padding: 2em;\n  color:#fff;\n  font-family: 'Arial';\n}\n\n.text{\n  color: #000000;\n  align-content: center;\n  width: 100%;\n}\n\n.buttonText{\n  color: #000000;\n  text-align: center;\n  width: 100%;\n\n\n}\n\nmat-toolbar{\n  background-color: lightgray;\n}\n"
+module.exports = "\nbody{\n  display:flex;\n  align-items: center;\n  justify-content: center;\n  padding: 2em;\n  color:#fff;\n  font-family: 'Arial';\n}\n\n.text{\n  color: #000000;\n  align-content: center;\n  width: 100%;\n}\n\n.buttonText{\n  color: #000000;\n  text-align: center;\n  width: 100%;\n\n\n}\n\nmat-toolbar{\n  background-color: #3e3b6c;\n  color: #fff;\n}\n\nmat-card{\n  background-color: lightgray;\n  margin: 8px;\n  height: 100%;\n}\n\n.primaryBtn{\n  margin-bottom: 4px;\n  width: 90%;\n}\n\n.secondaryBtn {\n  margin-top: 4px;\n  width: 90%;\n}\n\n.primaryBtnBox {\n  display: flex;\n  justify-content: center;\n  \n}\n\n.secondaryBtnBox {\n  display: flex;\n  justify-content: center;\n  \n}\n\ni {\n  margin: 4px;\n}\n\n.userData {\n  display: flex;\n}\n\nimg {\n  margin: 2px 6px 2px -8px;\n  vertical-align: inherit;\n  height: 24px;\n  width: 24px;\n}\n\n.fbUser {\n  display: flex;\n  align-items: center;\n  flex-direction: row;\n}\n\n.mainNav {\n  display: flex;\n  justify-content: space-between;\n}\n\n.secondaryNav {\n  display: flex;\n  justify-content: space-between;\n}"
 
 /***/ }),
 
@@ -2620,7 +2632,7 @@ module.exports = "\n\nbody, html{\n  margin: 0;\n  padding: 0;\n  width: 100%;\n
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-toolbar>\n    <button mat-button routerLink=\"/dashboard\" routerLinkActive=\"active\">Dashboard</button>\n    <button mat-button routerLink=\"/login\" routerLinkActive=\"active\">Log In</button>\n</mat-toolbar>\n<router-outlet></router-outlet>\n"
+module.exports = "<div *ngIf=\"auth.user | async; then authenticated else guest\">\n\n</div>\n\n<ng-template #guest>\n    <mat-toolbar class=\"secondaryNav\">\n        <!-- <button mat-button routerLink=\"/login\" routerLinkActive=\"active\">Log In</button> -->\n        \n        <button mat-button color=\"warn\" (click)=\"back()\">\n                <i class=\"fa fa-arrow-left\"></i>\n        </button>\n        <button mat-button routerLink=\"/dashboard\" routerLinkActive=\"active\">Dashboard</button>\n    </mat-toolbar>\n    <router-outlet></router-outlet>\n</ng-template>\n\n<ng-template #authenticated>\n\n    <mat-toolbar class=\"mainNav\">\n            <div class=\"userData\" *ngIf=\"auth.user | async as user\">\n                    <span class=\"fbUser\">\n                        <img [src]=\"user.photoURL\">\n                        <span>{{user.displayName}}</span>\n                    </span>\n                  </div>\n        <button mat-button routerLink=\"/dashboard\" routerLinkActive=\"active\">Dashboard</button>\n        <button class=\"logoutBtn\" mat-button (click)=\"auth.signOut()\">Logout</button>\n        <button mat-button color=\"warn\" (click)=\"back()\">\n                <i class=\"fa fa-arrow-left\"></i>\n        </button>\n    </mat-toolbar>\n    <router-outlet></router-outlet>\n</ng-template>\n\n\n"
 
 /***/ }),
 
@@ -2636,6 +2648,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppComponent", function() { return AppComponent; });
 /* harmony import */ var angularfire2_firestore__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! angularfire2/firestore */ "./node_modules/angularfire2/firestore/index.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _core_auth_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./core/auth.service */ "./src/app/core/auth.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2647,9 +2662,15 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
+
+
+
 var AppComponent = /** @class */ (function () {
-    function AppComponent(db) {
+    function AppComponent(db, auth, router, _location) {
         this.db = db;
+        this.auth = auth;
+        this.router = router;
+        this._location = _location;
         this.msgVal = '';
         // @Output() snavToggle = new EventEmitter<boolean>();
         this.title = 'RPG Chronicle';
@@ -2658,13 +2679,22 @@ var AppComponent = /** @class */ (function () {
     }
     AppComponent.prototype.ngAfterViewInit = function () {
     };
+    // navOpen(){
+    //   this.snavToggle.emit(true);
+    // }
+    AppComponent.prototype.back = function () {
+        this._location.back();
+    };
     AppComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-root',
             template: __webpack_require__(/*! ./app.component.html */ "./src/app/app.component.html"),
             styles: [__webpack_require__(/*! ./app.component.css */ "./src/app/app.component.css")]
         }),
-        __metadata("design:paramtypes", [angularfire2_firestore__WEBPACK_IMPORTED_MODULE_0__["AngularFirestore"]])
+        __metadata("design:paramtypes", [angularfire2_firestore__WEBPACK_IMPORTED_MODULE_0__["AngularFirestore"],
+            _core_auth_service__WEBPACK_IMPORTED_MODULE_2__["AuthService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
+            _angular_common__WEBPACK_IMPORTED_MODULE_4__["Location"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -2819,7 +2849,7 @@ var Character = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "h2 {\n  margin-top: 0;\n}\n\np {\n  width: 60%;\n}\n\nbutton {\n  margin-bottom: 10px;\n}\n\nmat-card {\n  background-color: lightgray;\n  margin: 8px;\n}\n"
+module.exports = "h2 {\n  margin-top: 0;\n}\n\np {\n  width: 60%;\n}\n\nbutton {\n  margin-bottom: 10px;\n}\n\nmat-card {\n  background-color: lightgray;\n  margin: 8px;\n}\n\n.buttons{\n  display: flex;\n  justify-content: space-between\n}\n"
 
 /***/ }),
 
@@ -2830,7 +2860,7 @@ module.exports = "h2 {\n  margin-top: 0;\n}\n\np {\n  width: 60%;\n}\n\nbutton {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-card class=\"details-container\" *ngIf=\"activeCharacter\">\n  <mat-card-content>\n    <div>\n      <h2>{{activeCharacter.name}}</h2>\n      <p><span style=\"font-weight: bold\">Gender:</span> {{activeCharacter.gender}}</p>\n      <p><span style=\"font-weight: bold\">Appearance:</span> {{activeCharacter.appearance}}</p>\n      <p><span style=\"font-weight: bold\">Bio:</span> {{activeCharacter.bio}}</p>\n      <button mat-raised-button color=\"primary\" (click)=\"openInventory()\">Inventory</button>\n\n    </div>\n    <button mat-raised-button (click)=\"killCharacter(activeCharacter.id)\">Kill This Character</button>\n  </mat-card-content>\n</mat-card>\n<br>\n<button mat-raised-button color=\"warn\" (click)=\"back()\">Back</button>\n"
+module.exports = "<mat-card class=\"details-container\" *ngIf=\"activeCharacter\">\n  <mat-card-content>\n    <div>\n      <h2>{{activeCharacter.name}}</h2>\n      <p><span style=\"font-weight: bold\">Gender:</span> {{activeCharacter.gender}}</p>\n      <p><span style=\"font-weight: bold\">Appearance:</span> {{activeCharacter.appearance}}</p>\n      <p><span style=\"font-weight: bold\">Bio:</span> {{activeCharacter.bio}}</p>\n      <button mat-raised-button color=\"primary\" (click)=\"openInventory()\">Inventory</button>\n\n    </div>\n    <div class=\"buttons\">\n      <button mat-raised-button color=\"warn\" (click)=\"back()\">Back</button>\n      <!-- <button mat-raised-button (click)=\"killCharacter(activeCharacter.id)\">Kill This Character</button> -->\n    </div>\n  </mat-card-content>\n</mat-card>\n<br>\n\n"
 
 /***/ }),
 
@@ -2884,7 +2914,6 @@ var CharacterDetailComponent = /** @class */ (function () {
     CharacterDetailComponent.prototype.openInventory = function () {
         var _this = this;
         var dialogRef = this.dialog.open(_inventory_inventory_component__WEBPACK_IMPORTED_MODULE_4__["InventoryComponent"], {
-            width: '40%',
             data: this.activeCharacter
         });
         dialogRef.afterClosed().subscribe(function (result) {
@@ -2923,7 +2952,7 @@ var CharacterDetailComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".primaryBtn{\n  margin-bottom: 4px;\n  width: 30%;\n}\n.secondaryBtn {\n  margin-top: 4px;\n  width: 20%;\n}\n.primaryBtnBox {\n  display: flex;\n  justify-content: center;\n\n}\n.secondaryBtnBox {\n  display: flex;\n  justify-content: center;\n\n}\nmat-card{\n  background-color: lightgray;\n  margin: 8px;\n}\n"
+module.exports = ".primaryBtn{\n  margin-bottom: 4px;\n}\n.secondaryBtn {\n  margin-top: 4px;\n}\n.primaryBtnBox {\n  display: flex;\n  justify-content: center;\n\n}\n.secondaryBtnBox {\n  display: flex;\n  justify-content: center;\n\n}\nmat-card{\n  background-color: lightgray;\n  margin: 8px;\n}\n"
 
 /***/ }),
 
@@ -3012,7 +3041,7 @@ var CharacterListComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "mat-form-field{\n  width: 100%;\n}\n\n.newCharacterForm{\n  display: flex;\n  flex-direction: column;\n}\n\n.veryShort{\n  width: 20%;\n}\n\n.short{\n  width: 35%;\n}\n\n.long{\n  width: 90%;\n}\n\n.primaryBtn{\n  margin-top: 50px;\n  width: 15%;\n}\n\n.secondaryBtn{\n  width: 15%;\n  margin-top: 10px;\n}\n\n"
+module.exports = "mat-form-field{\n  width: 100%;\n}\n\n.newCharacterForm{\n  display: flex;\n  flex-direction: column;\n}\n\n.veryShort{\n  width: 150px;\n}\n\n.short{\n  /*width: 35%;*/\n}\n\n.long{\n  /*width: 90%;*/\n}\n\n.primaryBtn{\n  margin-top: 50px;\n  /*width: 15%;*/\n}\n\n.secondaryBtn{\n  /*width: 15%;*/\n  margin-top: 10px;\n}\n\n"
 
 /***/ }),
 
@@ -3101,7 +3130,7 @@ var CreateCharacterComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "mat-form-field{\n  width: 80%;\n}\n\n.newStoryForm{\n  display: flex;\n  flex-direction: column;\n}\n\n.veryShort{\n  width: 20%;\n}\n\n.short{\n  width: 35%;\n}\n\n.primaryBtn{\n  margin-top: 50px;\n  width: 15%;\n}\n\n.secondaryBtn{\n  width: 15%;\n  margin-top: 10px;\n}\n\n.randomBtn{\n  width: 20%;\n  margin-top: 10px;\n}\n"
+module.exports = "mat-form-field{\n  /*width: 100%;*/\n}\n\n.newStoryForm{\n  display: flex;\n  flex-direction: column;\n}\n\n.veryShort{\n  /*width: 20%;*/\n}\n\n.short{\n  /*width: 35%;*/\n}\n\n.primaryBtn{\n  margin-top: 50px;\n  /*width: 15%;*/\n}\n\n.secondaryBtn{\n  /*width: 15%;*/\n  margin-top: 10px;\n}\n\n.randomBtn{\n  /*width: 20%;*/\n  margin-top: 10px;\n}\n"
 
 /***/ }),
 
@@ -3112,7 +3141,7 @@ module.exports = "mat-form-field{\n  width: 80%;\n}\n\n.newStoryForm{\n  display
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form class=\"newStoryForm\">\n  <mat-form-field appearance=\"legacy\" class=\"short\">\n    <mat-label>Title</mat-label>\n    <input name=\"title\" matInput maxlength=\"50\" placeholder=\"Quest for the Eternity Key\" required [(ngModel)]=\"storyTitle\">\n  </mat-form-field>\n\n  <!--<mat-radio-group>-->\n    <!--<mat-radio-button value=\"isNarrator\" (change)=\"togglePlayerStatus()\" checked>Narrator</mat-radio-button><br>-->\n    <!--<mat-radio-button value=\"isPlayer\" (change)=\"togglePlayerStatus()\">Player</mat-radio-button>-->\n  <!--</mat-radio-group>-->\n\n  <!--<mat-form-field class=\"short\" required>-->\n    <!--<mat-select #playerChoice placeholder=\"Character\">-->\n      <!--<mat-option #player *ngFor=\"let character of characters$ | async\" value=\"{{character.name}}\">{{character.name}}</mat-option>-->\n    <!--</mat-select>-->\n  <!--</mat-form-field>-->\n  <!--<button mat-raised-button class=\"secondaryBtn\" color=\"accent\" (click)=\"openCreateMenu()\">New Character</button>-->\n  <!--<app-create-character *ngIf=\"!hideCreate\" ></app-create-character>-->\n\n  <mat-form-field appearance=\"legacy\">\n    <mat-label>Opening Prompt</mat-label>\n    <textarea id=\"prompt\" name=\"prompt\" matInput placeholder=\"You find yourself stranded on a beach of black sand...\" required [(ngModel)]=\"firstMessage\"></textarea>\n    <mat-hint>This will be the opening text your player sees.</mat-hint>\n  </mat-form-field>\n  <button mat-raised-button class=\"randomBtn\" color=\"accent\" (click)=\"randomPrompt()\">Random Prompt</button>\n\n  <button mat-raised-button class=\"primaryBtn\" color=\"primary\" (click)=\"makeStory()\">Create</button>\n  <button mat-raised-button class=\"secondaryBtn\" color=\"warn\" [mat-dialog-close]=\"true\">Cancel</button>\n</form>\n"
+module.exports = "<form class=\"newStoryForm\">\n  <mat-form-field appearance=\"legacy\" class=\"short\">\n    <mat-label>Title</mat-label>\n    <input name=\"title\" matInput maxlength=\"50\" placeholder=\"Quest for the Eternity Key\" required [(ngModel)]=\"storyTitle\">\n  </mat-form-field>\n\n  <!--<mat-radio-group>-->\n    <!--<mat-radio-button value=\"isNarrator\" (change)=\"togglePlayerStatus()\" checked>Narrator</mat-radio-button><br>-->\n    <!--<mat-radio-button value=\"isPlayer\" (change)=\"togglePlayerStatus()\">Player</mat-radio-button>-->\n  <!--</mat-radio-group>-->\n\n  <!--<mat-form-field class=\"short\" required>-->\n    <!--<mat-select #playerChoice placeholder=\"Character\">-->\n      <!--<mat-option #player *ngFor=\"let character of characters$ | async\" value=\"{{character.name}}\">{{character.name}}</mat-option>-->\n    <!--</mat-select>-->\n  <!--</mat-form-field>-->\n  <!--<button mat-raised-button class=\"secondaryBtn\" color=\"accent\" (click)=\"openCreateMenu()\">New Character</button>-->\n  <!--<app-create-character *ngIf=\"!hideCreate\" ></app-create-character>-->\n\n  <mat-form-field appearance=\"legacy\">\n    <mat-label>Opening Prompt</mat-label>\n    <textarea id=\"prompt\" name=\"prompt\" matInput placeholder=\"You find yourself stranded on a beach of black sand...\" required [(ngModel)]=\"firstMessage\"></textarea>\n    <mat-hint>This will be the opening text your player sees.</mat-hint>\n  </mat-form-field>\n  <button mat-raised-button class=\"randomBtn\" (click)=\"randomPrompt()\">Random Prompt</button>\n\n  <button mat-raised-button class=\"primaryBtn\" color=\"primary\" (click)=\"makeStory()\">Create</button>\n  <button mat-raised-button class=\"secondaryBtn\" color=\"warn\" [mat-dialog-close]=\"true\">Cancel</button>\n</form>\n"
 
 /***/ }),
 
@@ -3226,7 +3255,7 @@ var randomPrompts = [
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "mat-card{\n  background-color: lightgray;\n}\n"
+module.exports = "mat-card{\n  background-color: lightgray;\n}\n\n.dashboard{\n  display: flex;\n  justify-content: space-between;\n}\n"
 
 /***/ }),
 
@@ -3237,7 +3266,7 @@ module.exports = "mat-card{\n  background-color: lightgray;\n}\n"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<link href=\"https://fonts.googleapis.com/icon?family=Material+Icons\" rel=\"stylesheet\">\n\n<body>\n\n<mat-card>\n  <button mat-button routerLink=\"/character-list\" routerLinkActive=\"active\">Characters</button>\n  <button mat-button routerLink=\"/story-list\" routerLinkActive=\"active\">Stories</button>\n</mat-card>\n\n</body>\n"
+module.exports = "<link href=\"https://fonts.googleapis.com/icon?family=Material+Icons\" rel=\"stylesheet\">\n\n<body>\n\n<mat-card class=\"dashboard\">\n  <button mat-button routerLink=\"/character-list\" routerLinkActive=\"active\">Characters</button>\n  <button mat-button routerLink=\"/story-list\" routerLinkActive=\"active\">Stories</button>\n  <button mat-button routerLink=\"/friends\" routerLinkActive=\"active\">Friends</button>\n</mat-card>\n\n</body>\n"
 
 /***/ }),
 
@@ -3289,7 +3318,7 @@ var DashboardComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = "mat-card{\n    background-color: lightgray;\n  }\n  \n  .dashboard{\n    display: flex;\n    justify-content: space-between;\n    flex-flow: column wrap;\n  }\n  "
 
 /***/ }),
 
@@ -3300,7 +3329,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  friends works!\n</p>\n"
+module.exports = "<mat-card>\n  <h3>Welcome to your friends list!!!</h3>\n  <p>Sorry this feature is still in development</p>\n  <p>Check back on a future date. Sorry for any inconvience</p>\n\n  <button mat-raised-button color=\"warn\" (click)=\"back()\">Back</button>\n</mat-card>"
 
 /***/ }),
 
@@ -3315,6 +3344,7 @@ module.exports = "<p>\n  friends works!\n</p>\n"
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FriendsComponent", function() { return FriendsComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3325,10 +3355,15 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
 var FriendsComponent = /** @class */ (function () {
-    function FriendsComponent() {
+    function FriendsComponent(router) {
+        this.router = router;
     }
     FriendsComponent.prototype.ngOnInit = function () {
+    };
+    FriendsComponent.prototype.back = function () {
+        this.router.navigate(['/dashboard']);
     };
     FriendsComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -3336,7 +3371,7 @@ var FriendsComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./friends.component.html */ "./src/app/components/friends/friends.component.html"),
             styles: [__webpack_require__(/*! ./friends.component.css */ "./src/app/components/friends/friends.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
     ], FriendsComponent);
     return FriendsComponent;
 }());
@@ -3352,7 +3387,7 @@ var FriendsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "ul {\n  list-style-type: none;\n}\n\nli {\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n\n.addBtn {\n  max-width: 30px;\n  margin: 5px 0 5px 0;\n  text-align: center;\n  background-color: limegreen;\n  vertical-align: middle;\n  color: white;\n  font-size: 14pt;\n}\n\n.removeBtn {\n  max-width: 15px;\n  margin: 0 10px 2px 0;\n  padding: 0 2px 0 2px;\n  text-align: center;\n  background-color: rgba(255, 0, 0, 0.2);\n  vertical-align: middle;\n  color: transparent;\n  font-size: 8pt;\n  border-radius: 5px;\n  border: transparent;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n\n.removeBtn:hover {\n  background-color: red;\n  color: white;\n}\n\n.scrolling {\n  overflow: scroll;\n  height: 200px;\n}\n"
+module.exports = ".details-container{\n  display: flex;\n  flex-direction: column;\n}\n\nul {\n  list-style-type: none;\n}\n\nli {\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n\n.addBtn {\n  max-width: 30px;\n  margin: 5px 0 5px 0;\n  text-align: center;\n  background-color: limegreen;\n  vertical-align: middle;\n  color: white;\n  font-size: 14pt;\n}\n\n.removeBtn {\n  max-width: 15px;\n  margin: 0 10px 2px 0;\n  padding: 0 2px 0 2px;\n  text-align: center;\n  background-color: rgba(255, 0, 0, 0.2);\n  vertical-align: middle;\n  color: transparent;\n  font-size: 8pt;\n  border-radius: 5px;\n  border: transparent;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n\n.removeBtn:hover {\n  background-color: red;\n  color: white;\n}\n\n.scrolling {\n  overflow: scroll;\n  height: 200px;\n}\n"
 
 /***/ }),
 
@@ -3465,7 +3500,7 @@ var InventoryComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "mat-card{\n  background-color: lightgray;\n  margin: 8px;\n}\n"
+module.exports = "mat-card{\n  background-color: lightgray;\n  margin: 8px;\n}\n\n\n.primaryBtn{\n  margin-bottom: 4px;\n  width: 90%;\n}\n\n\n.secondaryBtn {\n  margin-top: 4px;\n  width: 90%;\n}\n\n\n.primaryBtnBox {\n  display: flex;\n  justify-content: center;\n  \n}\n\n\n.secondaryBtnBox {\n  display: flex;\n  justify-content: center;\n  \n}\n\n\ni {\n  margin: 4px;\n}\n"
 
 /***/ }),
 
@@ -3476,7 +3511,7 @@ module.exports = "mat-card{\n  background-color: lightgray;\n  margin: 8px;\n}\n
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-card>\n<div *ngIf=\"auth.user | async; then authenticated else guest\">\n\n</div>\n\n\n<ng-template #guest>\n  <h3>Welcome, Guest</h3>\n  <p>Login to get started...</p>\n\n    <button (click)=\"auth.facebookLogin()\">\n        <i class=\"fa fa-facebook-square\"></i>Connect Facebook\n    </button>\n    <button (click)=\"auth.googleLogin()\">\n       <i class=\"fa fa-google\"></i>Connect Google\n    </button>\n    <!-- <button (click)=\"auth.emailLogin()\">\n        <i class=\"fas fa-envelope\"></i>Connect Email\n    </button> -->\n\n</ng-template>\n\n<ng-template #authenticated>\n  <div *ngIf=\"auth.user | async as user\">\n    <h3>Welcome, {{user.displayName}}</h3>\n    <img [src]=\"user.photoURL\">\n    <p>UID: {{user.uid}}</p>\n    <button (click)=\"auth.signOut()\">Logout</button>\n  </div>\n\n\n</ng-template>\n\n\n\n<!-- <mat-card>\n  <mat-card-header>\n    <h2 class=\"text\">Login</h2>\n  </mat-card-header>\n  <mat-card-content>\n    <mat-form-field>\n      <input matInput placeholder=\"Input\">\n    </mat-form-field>\n    <button mat-button>Create Profile</button>\n\n    <button mat-button (click)=\"console.log('foo')\">Dashboard</button>\n  </mat-card-content>\n</mat-card>\n\n<br><br> -->\n\n</mat-card>\n"
+module.exports = "<mat-card>\n<div *ngIf=\"auth.user | async; then authenticated else guest\">\n\n</div>\n\n\n<ng-template #guest>\n  <h3>Welcome, Guest</h3>\n  <p>Login is currently disabled:</p>\n   <p>navigate to the dashboard for features...</p>\n\n  <!-- <p>Login to get started...</p> -->\n\n\n    <!-- <div class=\"primaryBtnBox\">\n      <button class=\"primaryBtn\" color=\"primary\" mat-raised-button (click)=\"auth.facebookLogin()\">\n        <i class=\"fa fa-facebook-square\"></i>\n        <span>Connect Facebook</span>\n      </button>\n    </div>\n    <div class=\"secondaryBtnBox\">\n      <button class=\"primaryBtn\" color=\"primary\" mat-raised-button (click)=\"auth.googleLogin()\">\n        <i class=\"fa fa-google\"></i>\n        <span>Connect Google</span>\n      </button>\n    </div> -->\n    <!-- <button (click)=\"auth.emailLogin()\">\n        <i class=\"fas fa-envelope\"></i>Connect Email\n    </button> -->\n\n</ng-template>\n\n<ng-template #authenticated>\n  <div *ngIf=\"auth.user | async as user\">\n    <h3>Welcome, {{user.displayName}}</h3>\n    <img [src]=\"user.photoURL\">\n    <button class=\"primaryBtn\" color=\"primary\" mat-raised-button (click)=\"auth.signOut()\">Logout</button>\n  </div>\n\n\n</ng-template>\n\n\n\n<!-- <mat-card>\n  <mat-card-header>\n    <h2 class=\"text\">Login</h2>\n  </mat-card-header>\n  <mat-card-content>\n    <mat-form-field>\n      <input matInput placeholder=\"Input\">\n    </mat-form-field>\n    <button mat-button>Create Profile</button>\n\n    <button mat-button (click)=\"console.log('foo')\">Dashboard</button>\n  </mat-card-content>\n</mat-card>\n\n<br><br> -->\n\n</mat-card>\n"
 
 /***/ }),
 
@@ -3532,7 +3567,7 @@ var LoginComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".secondaryBtn {\n  margin-top: 4px;\n  width: 20%;\n}\n\nmat-card {\n  background-color: lightgray;\n  margin: 8px;\n}\n"
+module.exports = ".secondaryBtn {\n  margin-top: 4px;\n}\n\nmat-card {\n  background-color: lightgray;\n  margin: 8px;\n}\n\n.delete {\n  min-width: 1%;\n  opacity: 0.3;\n  font-weight: lighter;\n}\n\n.delete:hover {\n  opacity: 1;\n}\n"
 
 /***/ }),
 
@@ -3543,7 +3578,7 @@ module.exports = ".secondaryBtn {\n  margin-top: 4px;\n  width: 20%;\n}\n\nmat-c
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-card>\n  <h2>Stories</h2>\n  <mat-progress-spinner mode=\"indeterminate\" *ngIf=\"!(stories$ | async)\"></mat-progress-spinner>\n  <mat-list *ngFor=\"let story of stories$ | async\">\n    <button class=\"primaryBtn\" mat-raised-button color=\"primary\" [routerLink]=\"['/story', story.id]\" routerLinkActive=\"active\" \n    (click)=\"setActiveStory(story)\">{{ story?.title }}</button>\n  </mat-list>\n  <button style=\"margin-top: 20px;\" class=\"secondaryBtn\" mat-raised-button color=\"secondary\" (click)=\"openCreateMenu()\">Create New</button>\n</mat-card>\n"
+module.exports = "<mat-card>\n  <h2>Stories</h2>\n  <mat-progress-spinner mode=\"indeterminate\" *ngIf=\"!(stories$ | async)\"></mat-progress-spinner>\n  <mat-list *ngFor=\"let story of stories$ | async\">\n    <button class=\"delete\" mat-raised-button color=\"warn\" (click)=\"endStory(story.id)\">x</button>\n    <button class=\"primaryBtn\" mat-raised-button color=\"primary\" [routerLink]=\"['/story', story.id]\" routerLinkActive=\"active\"\n    (click)=\"setActiveStory(story)\">{{ story?.title }}</button>\n  </mat-list>\n  <button style=\"margin-top: 20px;\" class=\"secondaryBtn\" mat-raised-button color=\"secondary\" (click)=\"openCreateMenu()\">Create New</button>\n</mat-card>\n"
 
 /***/ }),
 
@@ -3595,6 +3630,11 @@ var StoryListComponent = /** @class */ (function () {
     };
     StoryListComponent.prototype.setActiveStory = function (activeStory) {
         this.characterService.activeStory.next(activeStory);
+    };
+    StoryListComponent.prototype.endStory = function (id) {
+        if (confirm('Are you sure you want to end this story?')) {
+            this.characterService.deleteStory(id);
+        }
     };
     StoryListComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -3766,7 +3806,7 @@ var SideNavComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".story-container{\n  background: #222427;\n  color: white;\n  height: 100%;\n  width: 100%;\n}\n\nh2{\n  text-align: center;\n  font-size: 24pt;\n  margin: 0;\n  background-color: lightgray;\n  padding: 10px;\n}\n\nul{\n  align-items: center;\n  width: 70%;\n  left: 150px;\n  position: relative;\n}\n\nli{\n  padding: 7px;\n  margin: 10px;\n  list-style-type: none;\n  background-color: lightblue;\n  /*color: white;*/\n  font-family: sans-serif;\n  font-weight: lighter;\n  border-radius: 5px;\n}\n\n.scrolling {\n  overflow: scroll;\n  height: 50%;\n}\n\n.addBtn{\n  background-color: lightblue;\n  font-size: 14pt;\n  border-radius: 10px;\n  margin: 3px;\n  vertical-align: center;\n  max-height: 50px;\n  max-width: 50px;\n  border: 1px solid #4A9CC1;\n  box-shadow: 2px 2px 6px -1px rgba(0,0,0,0.49);\n}\n\n/*.addBtn2{*/\n\n/*color: white;*/\n\n/*background-color: darkolivegreen;*/\n\n/*font-size: 14pt;*/\n\n/*border-radius: 10px;*/\n\n/*margin: 3px;*/\n\n/*vertical-align: center;*/\n\n/*max-height: 50px;*/\n\n/*max-width: 50px;*/\n\n/*}*/\n\n.messageField{\n  width: 50%;\n}\n\n.messageBox{\n  position: absolute;\n  bottom: 35px;\n  justify-content: center;\n  display: flex;\n  width: 100%;\n  background-color: lightgray;\n}\n"
+module.exports = ".story-container{\n  background: #222427;\n  color: white;\n  height: 100%;\n  width: 100%;\n}\n\nh2{\n  text-align: center;\n  font-size: 24pt;\n  margin: 0;\n  background-color: lightgray;\n  padding: 10px;\n}\n\nul{\n  /*align-items: center;*/\n  /*width: 70%;*/\n  /*left: 150px;*/\n  position: relative;\n}\n\nli{\n  padding: 7px;\n  margin: 5px;\n  list-style-type: none;\n  font-family: sans-serif;\n  font-weight: lighter;\n  border-radius: 5px;\n}\n\n.player, .addBtn{\n  background-color: #3e3b6c;\n  color: #fff;\n}\n\n.narrator, .addBtn2{\n  /*background-color: #8E703E;*/\n  background-color: #f9a013;\n  color: #fff;\n}\n\n.scrolling {\n  overflow: scroll;\n  height: 400px;\n}\n\n.addBtn, .addBtn2{\n  font-size: 14pt;\n  border-radius: 10px;\n  margin: 3px;\n  vertical-align: center;\n  max-height: 50px;\n  max-width: 50px;\n  border: 1px solid gray;\n  box-shadow: 2px 2px 6px -1px rgba(0,0,0,0.49);\n}\n\n.messageField{\n  width: 50%;\n}\n\n.messageBox{\n  position: absolute;\n  bottom: 35px;\n  justify-content: center;\n  display: flex;\n  width: 100%;\n  background-color: lightgray;\n}\n"
 
 /***/ }),
 
@@ -3777,7 +3817,7 @@ module.exports = ".story-container{\n  background: #222427;\n  color: white;\n  
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"details-container\">\n  <div>\n    <h2>{{activeStory.title}}</h2>\n    <ul class=\"scrolling\">\n      <li *ngFor=\"let message of plot\">{{message}}</li>\n    </ul>\n  </div>\n</div>\n<div class=\"messageBox\">\n  <mat-form-field class=\"messageField\" appearance=\"legacy\">\n    <textarea matInput [(ngModel)]=\"newMessage\"></textarea>\n  </mat-form-field>\n  <button class=\"addBtn\" (click)=\"writeMessage()\">+</button>\n  <!-- <button class=\"addBtn2\" (click)=\"writeMessage(player)\">+</button> -->\n</div>\n\n\n"
+module.exports = "<div class=\"details-container\">\n  <div>\n    <h2>{{activeStory.title}}</h2>\n    <ul class=\"scrolling\">\n      <div class=\"messages\"><li *ngFor=\"let message of plot\" class=\"{{message.color}}\">{{message.message}}</li></div>\n    </ul>\n  </div>\n</div>\n<div class=\"messageBox\">\n  <mat-form-field class=\"messageField\" appearance=\"legacy\">\n    <!-- <textarea matInput [(ngModel)]=\"newMessage\" (keyup.enter)=\"writeStory()\"></textarea> -->\n    <textarea matInput [(ngModel)]=\"newMessage\" (keyup.enter)=\"writeStory('player')\"></textarea>\n  </mat-form-field>\n  <button class=\"addBtn\" (click)=\"writeStory('player')\">+</button>\n  <button class=\"addBtn2\" (click)=\"writeStory('narrator')\">+</button>\n</div>\n"
 
 /***/ }),
 
@@ -3794,6 +3834,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var angularfire2_firestore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! angularfire2/firestore */ "./node_modules/angularfire2/firestore/index.js");
 /* harmony import */ var _app_services_characters_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../app-services/characters.service */ "./src/app/app-services/characters.service.ts");
+/* harmony import */ var _app_services_messaging_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../app-services/messaging.service */ "./src/app/app-services/messaging.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3806,35 +3847,42 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var StoryComponent = /** @class */ (function () {
-    function StoryComponent(characterService, db) {
+    function StoryComponent(messagingService, characterService, db) {
         var _this = this;
+        this.messagingService = messagingService;
         this.characterService = characterService;
         this.plot = [];
+        this.messages = [];
         this.characterService.activeStory.subscribe(function (activeStory) {
             _this.activeStory = activeStory;
         });
         this.storyRef = db.collection('stories').doc(this.activeStory.id);
+        // this.messageRef = db.collection('messages').doc(this.activeStory.id);
         db.collection('stories').doc(this.activeStory.id).valueChanges().subscribe(function (story) {
             _this.plot = story.plot;
         });
+        // db.collection('messages').doc(this.activeStory.id).valueChanges().subscribe((message: Messenger) => {
+        //   this.messages = message.plot;
+        // });
     }
     StoryComponent.prototype.ngOnInit = function () {
     };
-    StoryComponent.prototype.writeMessage = function () {
+    StoryComponent.prototype.writeStory = function (color) {
+        var chatBite = {};
         if (this.newMessage !== '') {
             var tempArray = [];
             for (var i = 0; i < this.plot.length; i++) {
-                tempArray.push(this.plot[i]);
+                chatBite = { message: this.plot[i].message, color: this.plot[i].color };
+                tempArray.push(chatBite);
             }
-            tempArray.push(this.newMessage);
+            tempArray.push({ message: this.newMessage, color: color });
             console.log(this.newMessage + ' added to ' + this.activeStory.title);
             this.storyRef.update({
                 plot: tempArray
             });
             this.newMessage = '';
-        }
-        else {
         }
     };
     StoryComponent = __decorate([
@@ -3843,7 +3891,8 @@ var StoryComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./story.component.html */ "./src/app/components/story/story.component.html"),
             styles: [__webpack_require__(/*! ./story.component.css */ "./src/app/components/story/story.component.css")]
         }),
-        __metadata("design:paramtypes", [_app_services_characters_service__WEBPACK_IMPORTED_MODULE_2__["CharactersService"],
+        __metadata("design:paramtypes", [_app_services_messaging_service__WEBPACK_IMPORTED_MODULE_3__["MessagingService"],
+            _app_services_characters_service__WEBPACK_IMPORTED_MODULE_2__["CharactersService"],
             angularfire2_firestore__WEBPACK_IMPORTED_MODULE_1__["AngularFirestore"]])
     ], StoryComponent);
     return StoryComponent;
@@ -3893,8 +3942,7 @@ var AuthService = /** @class */ (function () {
         this.afAuth = afAuth;
         this.afs = afs;
         this.router = router;
-        this.user = afAuth.authState;
-        this.user.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["switchMap"])(function (user) {
+        this.user = afAuth.authState.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["switchMap"])(function (user) {
             if (user) {
                 return _this.afs.doc("users/" + user.uid).valueChanges();
             }
@@ -3927,6 +3975,7 @@ var AuthService = /** @class */ (function () {
         return this.afAuth.auth.signInWithPopup(provider)
             .then(function (credential) {
             _this.updateUserData(credential.user);
+            _this.router.navigate(['/dashboard']);
         });
     };
     AuthService.prototype.updateUserData = function (user) {
@@ -3936,6 +3985,10 @@ var AuthService = /** @class */ (function () {
             email: user.email,
             displayName: user.displayName,
             photoURL: user.photoURL,
+            roles: {
+                narrator: false,
+                player: true
+            }
         };
         return userRef.set(data, { merge: true });
     };
@@ -3951,6 +4004,43 @@ var AuthService = /** @class */ (function () {
         this.afAuth.auth.signOut().then(function () {
             _this.router.navigate(['/']);
         });
+    };
+    //Abilities and Role Authorization
+    // canRead(user: User): boolean {
+    //   const allowed = ['admin', 'narrator', 'player']
+    //   return this.checkAuthorization(user, allowed)
+    // }
+    // canModifyInventory(user: User): boolean{
+    //   const allowed = ['admin', 'narrator']
+    //   return this.checkAuthorization(user, allowed)
+    // }
+    // canDeleteStory(user: User): boolean{
+    //   const allowed = ['admin']
+    //   return this.checkAuthorization(user, allowed)
+    // }
+    AuthService.prototype.setRole = function (user, roles) {
+        if (!user)
+            return false;
+        for (var _i = 0, roles_1 = roles; _i < roles_1.length; _i++) {
+            var role = roles_1[_i];
+            if (user.roles !== user.roles.narrator) {
+                return true;
+            }
+            else if (user.roles === user.roles.player) {
+                return false;
+            }
+        }
+    };
+    AuthService.prototype.checkAuthorization = function (user, allowedRoles) {
+        if (!user)
+            return false;
+        for (var _i = 0, allowedRoles_1 = allowedRoles; _i < allowedRoles_1.length; _i++) {
+            var role = allowedRoles_1[_i];
+            if (user.roles[role]) {
+                return true;
+            }
+        }
+        return false;
     };
     AuthService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
