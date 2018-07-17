@@ -35,7 +35,7 @@ export class CharactersService {
       id: this.makeId(),
       title: title,
       // character: Character,
-      plot: [prompt]
+      plot: [{message: prompt, color: 'narrator'}]
     };
     this.stories.doc(story.id).set(story).then(function () {
       console.log('Story created!');

@@ -6,6 +6,8 @@ export class Story {
     public id: string,
     public title: string,
     // public character: Character,
-    public plot: Array<string>,
+    public plot: Array<object>,
+    message?: string,
+    
   ) {}
 }
