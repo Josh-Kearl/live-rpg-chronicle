@@ -7,3 +7,13 @@ mat-card {
   background-color: lightgray;
   margin: 8px;
 }
+
+.delete {
+  min-width: 1%;
+  opacity: 0.3;
+  font-weight: lighter;
+}
+
+.delete:hover {
+  opacity: 1;
+}

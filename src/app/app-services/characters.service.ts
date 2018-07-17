@@ -75,6 +75,11 @@ export class CharactersService {
     console.log('Character killed.');
   }
 
+  deleteStory(story) {
+    this.stories.doc(story).delete();
+    console.log('The End.');
+  }
+
   getDetails(id: string): Observable<Character> {
     return this.getCharactersFB().pipe(map((characters: Character[]) => {
       return characters.find((character: Character) => character.id == id);

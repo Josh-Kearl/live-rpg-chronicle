@@ -40,5 +40,10 @@ export class StoryListComponent implements OnInit {
     this.characterService.activeStory.next(activeStory);
   }
 
+  endStory(id){
+    if (confirm('Are you sure you want to end this story?')){
+      this.characterService.deleteStory(id);
+    }
+  }
 
 }

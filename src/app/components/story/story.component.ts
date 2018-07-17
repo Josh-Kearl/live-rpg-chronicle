@@ -11,7 +11,7 @@ import { CharactersService } from '../../app-services/characters.service';
 export class StoryComponent implements OnInit {
   private stories: AngularFirestoreCollection<Story>;
   activeStory: Story;
-  plot: object[] = [];
+  plot = [];
   storyRef: any;
   newMessage: string;
 
