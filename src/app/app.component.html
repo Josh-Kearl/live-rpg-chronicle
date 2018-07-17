@@ -1,5 +1,35 @@
-<mat-toolbar>
-    <button mat-button routerLink="/dashboard" routerLinkActive="active">Dashboard</button>
-    <button mat-button routerLink="/login" routerLinkActive="active">Log In</button>
-</mat-toolbar>
-<router-outlet></router-outlet>
+<div *ngIf="auth.user | async; then authenticated else guest">
+
+</div>
+
+<ng-template #guest>
+    <mat-toolbar class="secondaryNav">
+        <!-- <button mat-button routerLink="/login" routerLinkActive="active">Log In</button> -->
+        
+        <button mat-button color="warn" (click)="back()">
+                <i class="fa fa-arrow-left"></i>
+        </button>
+        <button mat-button routerLink="/dashboard" routerLinkActive="active">Dashboard</button>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+</ng-template>
+
+<ng-template #authenticated>
+
+    <mat-toolbar class="mainNav">
+            <div class="userData" *ngIf="auth.user | async as user">
+                    <span class="fbUser">
+                        <img [src]="user.photoURL">
+                        <span>{{user.displayName}}</span>
+                    </span>
+                  </div>
+        <button mat-button routerLink="/dashboard" routerLinkActive="active">Dashboard</button>
+        <button class="logoutBtn" mat-button (click)="auth.signOut()">Logout</button>
+        <button mat-button color="warn" (click)="back()">
+                <i class="fa fa-arrow-left"></i>
+        </button>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+</ng-template>
+
+

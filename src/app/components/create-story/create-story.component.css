@@ -1,5 +1,5 @@
 mat-form-field{
-  width: 80%;
+  /*width: 100%;*/
 }
 
 .newStoryForm{
@@ -8,22 +8,22 @@ mat-form-field{
 }
 
 .veryShort{
-  width: 20%;
+  /*width: 20%;*/
 }
 
 .short{
-  width: 35%;
+  /*width: 35%;*/
 }
 
 .primaryBtn{
   margin-top: 50px;
-  width: 15%;
+  /*width: 15%;*/
 }
 .secondaryBtn{
-  width: 15%;
+  /*width: 15%;*/
   margin-top: 10px;
 }
 .randomBtn{
-  width: 20%;
+  /*width: 20%;*/
   margin-top: 10px;
 }

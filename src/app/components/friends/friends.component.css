@@ -1,0 +1,10 @@
+mat-card{
+    background-color: lightgray;
+  }
+  
+  .dashboard{
+    display: flex;
+    justify-content: space-between;
+    flex-flow: column wrap;
+  }
+  
