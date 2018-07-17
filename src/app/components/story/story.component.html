@@ -2,7 +2,7 @@
   <div>
     <h2>{{activeStory.title}}</h2>
     <ul class="scrolling">
-      <li *ngFor="let message of plot">{{message}}</li>
+      <li *ngFor="let message of plot" class="{{message.color}}">{{message.message}}</li>
     </ul>
   </div>
 </div>
@@ -10,8 +10,8 @@
   <mat-form-field class="messageField" appearance="legacy">
     <textarea matInput [(ngModel)]="newMessage"></textarea>
   </mat-form-field>
-  <button class="addBtn" (click)="writeMessage()">+</button>
-  <!-- <button class="addBtn2" (click)="writeMessage(player)">+</button> -->
+  <button class="addBtn" (click)="writeMessage('player')">+</button>
+   <button class="addBtn2" (click)="writeMessage('narrator')">+</button>
 </div>
 
 
